@@ -1,222 +1,268 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <ActiveTab_desc></ActiveTab_desc>
+  <SimpleSidearms_ModTitle>Simple Sidearms</SimpleSidearms_ModTitle>
+
+  <FirstTimeSettingsWarning>第一次運行Simple Sidearms嗎？
+
+這個圖示表示該模組的設置尚未配置。當首次訪問設置菜單時，圖示便會消失。
+
+點擊現在前往設置。</FirstTimeSettingsWarning>
+
   <ActiveTab_title>配置選項</ActiveTab_title>
-  <ToolAutoSwitch_desc>角色是否應當在工作的時候自動切換帶有對應屬性增益的工具？</ToolAutoSwitch_desc>
-  <ToolAutoSwitch_title>工具自動切換</ToolAutoSwitch_title>
-  <OptimalMelee_desc>角色是否應當自動切換使用DPS最高的近戰武器？</OptimalMelee_desc>
-  <OptimalMelee_title>使用最佳的近戰武器</OptimalMelee_title>
-  <CQCAutoSwitch_desc>當角色進行近身戰鬥時是否會切換至攜帶的近戰副武器。</CQCAutoSwitch_desc>
-  <CQCAutoSwitch_title>近戰自動切換</CQCAutoSwitch_title>
-  <CQCFistSwitch_desc>當角色正在徒手戰鬥時是否切換至攜帶的近戰武器。</CQCFistSwitch_desc>
-  <CQCFistSwitch_title>徒手戰鬥自動切換</CQCFistSwitch_title>
-  <CQCTargetOnly_desc>開-近戰攻擊指定目標時切換\n關-近戰攻擊任意目標時切換</CQCTargetOnly_desc>
-  <CQCTargetOnly_title>只針對目標</CQCTargetOnly_title>
+  <ActiveTab_desc></ActiveTab_desc>
+  <ToolAutoSwitch_title>自動切換－工具</ToolAutoSwitch_title>
+  <ToolAutoSwitch_desc>是否根據當前工作切換擁有狀態增益的工具/武器？</ToolAutoSwitch_desc>
+  <OptimalMelee_title>自動切換－近戰最佳</OptimalMelee_title>
+  <OptimalMelee_desc>是否自動切換更高DPS的近戰武器？</OptimalMelee_desc>
+  <CQCAutoSwitch_title>自動切換－近戰</CQCAutoSwitch_title>
+  <CQCAutoSwitch_desc>是否在近戰攻擊時自動切換到近戰副武器？</CQCAutoSwitch_desc>
+  <CQCFistSwitch_title>自動切換－徒手格鬥</CQCFistSwitch_title>
+  <CQCFistSwitch_desc>即使沒有裝備副武器，是否自動切換為徒手格鬥？</CQCFistSwitch_desc>
+  <CQCTargetOnly_title>攻擊目標時切換</CQCTargetOnly_title>
+  <CQCTargetOnly_desc>是否針對當前目標的攻擊做出反應？</CQCTargetOnly_desc>
 
-  <DropMode_desc>在哪個情況下，角色不得不放棄他們的武器，而不是放回物品欄。</DropMode_desc>
-  <DropMode_title>丟棄標準</DropMode_title>
-  <ReEquipBest_desc>在丟棄武器之後，自動尋找可以使用的最佳武器（而不是最近的武器）。</ReEquipBest_desc>
-  <ReEquipBest_title>允許重裝備最佳</ReEquipBest_title>
+  <DropMode_title>拋棄準則</DropMode_title>
+  <DropMode_desc>什麼情況下，殖民者會拋下武器而不是放回物品欄？</DropMode_desc>
+  <FumbleRecoveryChance_title>減少拋棄機率</FumbleRecoveryChance_title>
+  <FumbleRecoveryChance_hint>垂直軸是避免拋棄的機率
+水平軸是近戰或遠程技能（取決於哪個更好）</FumbleRecoveryChance_hint>
 
+  <ReEquipOutOfCombat_title>自動整備－戰後</ReEquipOutOfCombat_title>
+  <ReEquipOutOfCombat_desc>結束戰鬥後，自動重新裝備拋棄的武器。</ReEquipOutOfCombat_desc>
+  <ReEquipBest_title>自動整備－最佳</ReEquipBest_title>
+  <ReEquipBest_desc>優先搜尋品質更好的武器【而非距離】並裝備上。</ReEquipBest_desc>
+  <ReEquipInCombat_title>自動整備－戰鬥中</ReEquipInCombat_title>
+  <ReEquipInCombat_desc>在戰鬥中被動反應時，自動重裝新裝備武器。</ReEquipInCombat_desc>
+
+  <SkipDangerousWeapons_title>忽略危險武器</SkipDangerousWeapons_title>
+  <SkipDangerousWeapons_desc>禁止自動裝備危險武器（如汽油彈、手榴彈、火箭發射器等）。</SkipDangerousWeapons_desc>
+  <SkipEMPWeapons_title>忽略EMP武器</SkipEMPWeapons_title>
+  <SkipEMPWeapons_desc>禁止自動裝備EMP武器（請注意，除非與機械人戰鬥，否則殖民者不會考慮自動裝備這些武器）。</SkipEMPWeapons_desc>
+
+  <PreserveInventoryInCaravans_title>商旅－保留副武器</PreserveInventoryInCaravans_title>
+  <PreserveInventoryInCaravans_desc>當隊伍從旅行歸來時，副武器正常出現在物品欄中。（實驗性功能，由XT-0xFF@Github實現）</PreserveInventoryInCaravans_desc>
+
+  <HideSidearmsInCaravanDialogs_title>商旅－隱藏副武器</HideSidearmsInCaravanDialogs_title>
+　<HideSidearmsInCaravanDialogs_desc>在交易介面隱藏副武器，避免意外販售。（實驗性功能，由XT-0xFF@Github實現）</HideSidearmsInCaravanDialogs_desc>
+
+  <ShowAlertsMissingSidearm_title>顯示副武器警報</ShowAlertsMissingSidearm_title>
+  <ShowAlertsMissingSidearm_desc>顯示物品欄遺失副武器卻沒有武器裝備的警報。</ShowAlertsMissingSidearm_desc>
+
+  <SidearmsPlaySounds_title>播放音效</SidearmsPlaySounds_title>
+  <SidearmsPlaySounds_desc>當切換武器時播放音效。</SidearmsPlaySounds_desc>
+
+  <AllowBlockedWeaponUse_title>允許使用被禁止的武器</AllowBlockedWeaponUse_title>
+  <AllowBlockedWeaponUse_desc>允許使用通常被禁止的武器，例如個人武器、生物密碼武器和意識形態角色限制武器——參見XKCD＃1172。</AllowBlockedWeaponUse_desc>
+
+  <LimitCarryInfo_title>*始終受限於殖民者的負重能力</LimitCarryInfo_title>
   <LimitCarryInfo_desc></LimitCarryInfo_desc>
-  <LimitCarryInfo_title>*受限於角色的負重能力</LimitCarryInfo_title>
 
+  <CEOverrideInfo_title>已禁用以支援CE的系統。</CEOverrideInfo_title>
   <CEOverrideInfo_desc></CEOverrideInfo_desc>
-  <CEOverrideInfo_title>為支持CE系統而禁用。</CEOverrideInfo_title>
 
-  <LimitModeAmountMelee_desc>攜帶所有近戰副武器的限制條件。</LimitModeAmountMelee_desc>
-  <LimitModeAmountMelee_title>全部近戰副武器限制模式</LimitModeAmountMelee_title>
-  <LimitModeAmountRanged_desc>攜帶所有遠程副武器的限制條件。</LimitModeAmountRanged_desc>
-  <LimitModeAmountRanged_title>全部遠程副武器限制模式</LimitModeAmountRanged_title>
-  <LimitModeAmount_desc>攜帶全部副武器的限制條件。</LimitModeAmount_desc>
-  <LimitModeAmount_title>全部副武器限制模式</LimitModeAmount_title>
-  <LimitModeSingleMelee_desc>攜帶單個近戰副武器的限制條件。</LimitModeSingleMelee_desc>
-  <LimitModeSingleMelee_title>單個近戰副武器限制模式</LimitModeSingleMelee_title>
-  <LimitModeSingleRanged_desc>攜帶單個遠程副武器的限制條件。</LimitModeSingleRanged_desc>
-  <LimitModeSingleRanged_title>單個遠程副武器限制模式</LimitModeSingleRanged_title>
-  <LimitModeSingle_desc>攜帶單個副武器的限制條件。</LimitModeSingle_desc>
-  <LimitModeSingle_title>單個副武器限制模式</LimitModeSingle_title>
+  <LimitModeAmount_title>Total sidearms limit mode</LimitModeAmount_title>
+  <LimitModeAmountMelee_title>Total melee sidearms limit mode</LimitModeAmountMelee_title>
+  <LimitModeAmountRanged_title>Total ranged sidearms limit mode</LimitModeAmountRanged_title>
+  <LimitModeAmount_desc>What restrictions are there on all sidearms.</LimitModeAmount_desc>
+  <LimitModeAmountMelee_desc>What restrictions are there on all melee sidearms.</LimitModeAmountMelee_desc>
+  <LimitModeAmountRanged_desc>What restrictions are there on all ranged sidearms.</LimitModeAmountRanged_desc>
+  <LimitModeSingle_title>Single sidearm limit mode</LimitModeSingle_title>
+  <LimitModeSingleMelee_title>Single melee sidearm limit mode</LimitModeSingleMelee_title>
+  <LimitModeSingleRanged_title>Single ranged sidearm limit mode</LimitModeSingleRanged_title>
+  <LimitModeSingle_desc>What restrictions are there on individual sidearms.</LimitModeSingle_desc>
+  <LimitModeSingleMelee_desc>What restrictions are there on individual melee sidearms.</LimitModeSingleMelee_desc>
+  <LimitModeSingleRanged_desc>What restrictions are there on individual ranged sidearms.</LimitModeSingleRanged_desc>
 
-  <LimitModeAmountTotal_title>全部副武器限制模式</LimitModeAmountTotal_title>
-  <LimitModeAmountTotal_desc>攜帶全部副武器的限制條件。</LimitModeAmountTotal_desc>
+  <LimitModeAmountTotal_title>Total sidearms limit mode</LimitModeAmountTotal_title>
+  <LimitModeAmountTotal_desc>What restrictions are there on all sidearms.</LimitModeAmountTotal_desc>
 
-  <MaximumMassAmountAbsolute_desc>角色攜帶副武器總重量的最大值。</MaximumMassAmountAbsolute_desc>
-  <MaximumMassAmountAbsolute_title>最大重量（全部）</MaximumMassAmountAbsolute_title>
-  <MaximumMassAmountRelative_desc>全部副武器占用的最大載重百分比。</MaximumMassAmountRelative_desc>
-  <MaximumMassAmountRelative_title>最大負重百分比（全部)</MaximumMassAmountRelative_title>
-  <MaximumMassSingleAbsolute_desc>角色攜帶每個副武器重量的最大值。</MaximumMassSingleAbsolute_desc>
-  <MaximumMassSingleAbsolute_title>最大重量（每個）</MaximumMassSingleAbsolute_title>
-  <MaximumMassSingleRelative_desc>每個副武器占用的最大載重百分比。</MaximumMassSingleRelative_desc>
-  <MaximumMassSingleRelative_title>最大負重百分比（每個）</MaximumMassSingleRelative_title>
-  <MaximumSlots_desc>角色攜帶的副武器最大數量。</MaximumSlots_desc>
-  <MaximumSlots_title>槽位</MaximumSlots_title>
-  <RangedCombatAutoSwitchMaxWarmup_desc>當角色射擊之後，不會切換武器的最大預熱百分比。</RangedCombatAutoSwitchMaxWarmup_desc>
-  <RangedCombatAutoSwitchMaxWarmup_title>最大預熱百分比</RangedCombatAutoSwitchMaxWarmup_title>
-  <RangedCombatAutoSwitch_desc>在遠程攻擊時是否自動切換至合適射程的武器。</RangedCombatAutoSwitch_desc>
-  <RangedCombatAutoSwitch_title>遠程自動切換</RangedCombatAutoSwitch_title>
-  <SeparateModes_desc>近戰武器和遠程武器是否共享相同的限制。</SeparateModes_desc>
-  <SeparateModes_title>分離近戰和遠程武器。</SeparateModes_title>
+  <MaximumMassAmountAbsolute_desc>Maximum total mass of sidearms a pawn can carry.</MaximumMassAmountAbsolute_desc>
+  <MaximumMassAmountAbsolute_title>Max. mass of sidearms</MaximumMassAmountAbsolute_title>
+  <MaximumMassAmountRelative_desc>Maximum total mass percentage of sidearms a pawn can carry relative to their carry capacity.</MaximumMassAmountRelative_desc>
+  <MaximumMassAmountRelative_title>Max. mass percentage of sidearms</MaximumMassAmountRelative_title>
+  <MaximumMassSingleAbsolute_desc>Maximum mass of a single sidearm a pawn can carry.</MaximumMassSingleAbsolute_desc>
+  <MaximumMassSingleAbsolute_title>Max. mass per sidearm</MaximumMassSingleAbsolute_title>
+  <MaximumMassSingleRelative_desc>Maximum mass percentage of a single sidearm a pawn can carry relative to their carry capacity.</MaximumMassSingleRelative_desc>
+  <MaximumMassSingleRelative_title>Max. mass percentage per sidearm</MaximumMassSingleRelative_title>
+  <MaximumSlots_desc>How many sidearms can a pawn carry.</MaximumSlots_desc>
+  <MaximumSlots_title>Slots</MaximumSlots_title>
+  <RangedCombatAutoSwitchMaxWarmup_desc>What is the threshold after which a pawn will refuse to interrupt their attack to switch to a sidearm?</RangedCombatAutoSwitchMaxWarmup_desc>
+  <RangedCombatAutoSwitchMaxWarmup_title>Maximum warmup percentage</RangedCombatAutoSwitchMaxWarmup_title>
+  <RangedCombatAutoSwitch_desc>Should pawns switch to range-appropriate ranged sidearms when attacking at range?</RangedCombatAutoSwitch_desc>
+  <RangedCombatAutoSwitch_title>Use best ranged weapon</RangedCombatAutoSwitch_title>
+  <SeparateModes_desc>Should melee and ranged weapons have shared or separate restrictions?</SeparateModes_desc>
+  <SeparateModes_title>Split melee/ranged</SeparateModes_title>
   <SidearmSelection_desc></SidearmSelection_desc>
-  <SidearmSelection_title>副武器選擇</SidearmSelection_title>
-  <SingleshotAutoSwitch_desc>在使用一次性武器之後角色是否會轉而使用副武器。</SingleshotAutoSwitch_desc>
-  <SingleshotAutoSwitch_title>一次性武器自動切換</SingleshotAutoSwitch_title>
-  <SpeedSelectionBiasMelee_desc>角色更加偏向於選擇攻擊速度更快的近戰武器。</SpeedSelectionBiasMelee_desc>
-  <SpeedSelectionBiasMelee_title>速度偏好（近戰）</SpeedSelectionBiasMelee_title>
-  <SpeedSelectionBiasRanged_desc>角色更加偏向於選擇預熱時間更短的遠程武器。</SpeedSelectionBiasRanged_desc>
-  <SpeedSelectionBiasRanged_title>速度偏好（遠程）</SpeedSelectionBiasRanged_title>
-  <WeaponMatch_desc>這些是符合給定的標準的武器。</WeaponMatch_desc>
+  <SidearmSelection_title>Sidearm selection</SidearmSelection_title>
+  <SingleshotAutoSwitch_desc>Should pawns switch to sidearms after expending single-use weapons?</SingleshotAutoSwitch_desc>
+  <SingleshotAutoSwitch_title>Singleshot autoswitch</SingleshotAutoSwitch_title>
+  <SpeedSelectionBiasMelee_desc>Pawn bias towards selecting weapons with faster attack speed.</SpeedSelectionBiasMelee_desc>
+  <SpeedSelectionBiasMelee_title>Speed bias (melee)</SpeedSelectionBiasMelee_title>
+  <SpeedSelectionBiasRanged_desc>Pawn bias towards selecting weapons with faster warmup.</SpeedSelectionBiasRanged_desc>
+  <SpeedSelectionBiasRanged_title>Speed bias (ranged)</SpeedSelectionBiasRanged_title>
+  <WeaponMatch_desc>These are the weapons that match the given criteria.</WeaponMatch_desc>
   <WeaponMatch_title></WeaponMatch_title>
+  <MaximumMassAmountRelative_hint>Listing assumes standard carry capacity of 35 kg</MaximumMassAmountRelative_hint>
 
-  <SidearmSpawnChance_desc>在角色生成時攜帶副武器的幾率。</SidearmSpawnChance_desc>
-  <SidearmSpawnChance_title>攜帶副武器幾率</SidearmSpawnChance_title>
-  <SidearmSpawnChanceDropoff_desc>每添加一個副武器，添加新副武器的幾率降低的數值。</SidearmSpawnChanceDropoff_desc>
-  <SidearmSpawnChanceDropoff_title>額外幾率降低</SidearmSpawnChanceDropoff_title>
-  <SidearmBudgetMultiplier_desc>能夠生成的副武器價值，取決於默認主武器的數值。</SidearmBudgetMultiplier_desc>
-  <SidearmBudgetMultiplier_title>副武器預算</SidearmBudgetMultiplier_title>
-  <SidearmBudgetDropoff_desc>每添加一個副武器，添加新副武器的預算降低的數值。</SidearmBudgetDropoff_desc>
-  <SidearmBudgetDropoff_title>額外預算降低</SidearmBudgetDropoff_title>
-  <ColonistDefaultWeaponMode_desc>玩家單位的默認武器偏好模式。</ColonistDefaultWeaponMode_desc>
-  <ColonistDefaultWeaponMode_title>殖民者默認武器模式</ColonistDefaultWeaponMode_title>
-  <NPCDefaultWeaponMode_desc>NPC的默認武器偏好模式。</NPCDefaultWeaponMode_desc>
-  <NPCDefaultWeaponMode_title>NPC默認武器模式</NPCDefaultWeaponMode_title>
+  <SidearmSpawnChance_desc>The chance for any pawn that spawns with a weapon to also have a sidearm.</SidearmSpawnChance_desc>
+  <SidearmSpawnChance_title>Sidearm spawn chance</SidearmSpawnChance_title>
+  <SidearmSpawnChanceDropoff_desc>The amount by which the chance to spawn a sidearm is reduced by per additional sidearm.</SidearmSpawnChanceDropoff_desc>
+  <SidearmSpawnChanceDropoff_title>Additional spawn chance reduction</SidearmSpawnChanceDropoff_title>
+  <SidearmBudgetMultiplier_desc>The amount of money a sidearm can be worth, based on the default primary weapon.</SidearmBudgetMultiplier_desc>
+  <SidearmBudgetMultiplier_title>Sidearm budget multiplier</SidearmBudgetMultiplier_title>
+  <SidearmBudgetDropoff_desc>The amount by which the budget is reduced by per additional sidearm.</SidearmBudgetDropoff_desc>
+  <SidearmBudgetDropoff_title>Additional sidearm budget reduction</SidearmBudgetDropoff_title>
+  <ColonistDefaultWeaponMode_desc>The default weapon preference mode for player-controlled pawns.</ColonistDefaultWeaponMode_desc>
+  <ColonistDefaultWeaponMode_title>Colonist default weapon mode</ColonistDefaultWeaponMode_title>
+  <NPCDefaultWeaponMode_desc>The default weapon preference mode for NPC pawns.</NPCDefaultWeaponMode_desc>
+  <NPCDefaultWeaponMode_title>NPC default weapon mode</NPCDefaultWeaponMode_title>
 
-  <PrimaryWeaponMode_option_Ranged>遠程</PrimaryWeaponMode_option_Ranged>
-  <PrimaryWeaponMode_option_Melee>近戰</PrimaryWeaponMode_option_Melee>
-  <PrimaryWeaponMode_option_BySkill>取決於技能</PrimaryWeaponMode_option_BySkill>
-  <PrimaryWeaponMode_option_ByGenerated>取決於主武器</PrimaryWeaponMode_option_ByGenerated>
+  <PrimaryWeaponMode_option_Ranged>Ranged</PrimaryWeaponMode_option_Ranged>
+  <PrimaryWeaponMode_option_Melee>Melee</PrimaryWeaponMode_option_Melee>
+  <PrimaryWeaponMode_option_BySkill>By skill</PrimaryWeaponMode_option_BySkill>
+  <PrimaryWeaponMode_option_ByGenerated>By primary</PrimaryWeaponMode_option_ByGenerated>
 
 
-  <LimitModeSingle_option_None>無限制</LimitModeSingle_option_None>
-  <LimitModeSingle_option_RelativeWeight>負重比例</LimitModeSingle_option_RelativeWeight>
-  <LimitModeSingle_option_AbsoluteWeight>絕對質量</LimitModeSingle_option_AbsoluteWeight>
-  <LimitModeSingle_option_Selection>指定武器</LimitModeSingle_option_Selection>
+  <LimitModeSingle_option_None>No limit</LimitModeSingle_option_None>
+  <LimitModeSingle_option_RelativeWeight>Mass fraction</LimitModeSingle_option_RelativeWeight>
+  <LimitModeSingle_option_AbsoluteWeight>Mass absolute</LimitModeSingle_option_AbsoluteWeight>
+  <LimitModeSingle_option_Selection>Specific weapons</LimitModeSingle_option_Selection>
 
-  <LimitModeAmount_option_None>無限制</LimitModeAmount_option_None>
-  <LimitModeAmount_option_RelativeWeight>負重比例</LimitModeAmount_option_RelativeWeight>
-  <LimitModeAmount_option_AbsoluteWeight>絕對質量</LimitModeAmount_option_AbsoluteWeight>
-  <LimitModeAmount_option_Slots>槽位</LimitModeAmount_option_Slots>
+  <LimitModeAmount_option_None>No limit</LimitModeAmount_option_None>
+  <LimitModeAmount_option_RelativeWeight>Mass fraction</LimitModeAmount_option_RelativeWeight>
+  <LimitModeAmount_option_AbsoluteWeight>Mass absolute</LimitModeAmount_option_AbsoluteWeight>
+  <LimitModeAmount_option_Slots>Slots</LimitModeAmount_option_Slots>
 
   <ActiveTab_option_Folded>&lt;</ActiveTab_option_Folded>
-  <ActiveTab_option_Presets>預設</ActiveTab_option_Presets>
-  <ActiveTab_option_Automation>觸發器</ActiveTab_option_Automation>
-  <ActiveTab_option_Allowances>限制</ActiveTab_option_Allowances>
-  <ActiveTab_option_Spawning>生成</ActiveTab_option_Spawning>
-  <ActiveTab_option_Misc>雜項</ActiveTab_option_Misc>
+  <ActiveTab_option_Presets>Presets</ActiveTab_option_Presets>
+  <ActiveTab_option_Automation>Triggers</ActiveTab_option_Automation>
+  <ActiveTab_option_Allowances>Limits</ActiveTab_option_Allowances>
+  <ActiveTab_option_Spawning>Spawns</ActiveTab_option_Spawning>
+  <ActiveTab_option_Misc>Misc.</ActiveTab_option_Misc>
 
-  <DropMode_option_Never>從不</DropMode_option_Never>
-  <DropMode_option_InDistress>遇險時</DropMode_option_InDistress>
-  <DropMode_option_InCombat>戰鬥中</DropMode_option_InCombat>
-  <DropMode_option_Always>總是</DropMode_option_Always>
+  <DropMode_option_Never>Never</DropMode_option_Never>
+  <DropMode_option_InDistress>In distress</DropMode_option_InDistress>
+  <DropMode_option_InCombat>In combat</DropMode_option_InCombat>
+  <DropMode_option_Always>Always</DropMode_option_Always>
 
+  <Fumbled>Fumble!</Fumbled>
+  <Fumbled_dev>Fumble! ({0})</Fumbled_dev>
 
   <PresetExport_title></PresetExport_title>
   <PresetExport_desc></PresetExport_desc>
-  <PresetExport_label>覆製當前配置到剪貼板</PresetExport_label>
+  <PresetExport_label>Copy active config to clipboard</PresetExport_label>
 
 
-  <PresetCustom_title>自定義</PresetCustom_title>
-  <PresetCustom_desc>自定義配置，自動更改相應設置。</PresetCustom_desc>
+  <PresetCustom_title>Custom</PresetCustom_title>
+  <PresetCustom_desc>Custom settings. Automatically selected upon making a change.</PresetCustom_desc>
   <PresetCustom_label></PresetCustom_label>
-  <Preset0_title>禁用</Preset0_title>
-  <Preset0_desc>禁用全部選項，僅使用一小部分良好的基礎配置。</Preset0_desc>
+  <Preset0_title>Disabled</Preset0_title>
+  <Preset0_desc>All options disabled. Good base for configurations that use only a small portion of the mod's features.</Preset0_desc>
   <Preset0_label></Preset0_label>
-  <Preset1half_title>簡潔</Preset1half_title>
-  <Preset1half_desc>允許裝備一件近戰武器作為副武器。</Preset1half_desc>
+  <Preset1half_title>Lite</Preset1half_title>
+  <Preset1half_desc>Allows a single light weapon as a sidearm.</Preset1half_desc>
   <Preset1half_label></Preset1half_label>
-  <Preset1_title>僅裝備</Preset1_title>
-  <Preset1_desc>除了允許裝備少量副武器之外沒有任何內容，本質上是一個方便的物品欄擴展。</Preset1_desc>
+  <Preset1_title>Loadout only</Preset1_title>
+  <Preset1_desc>Allows equipping sidearms, but nothing else. Essentially a convenient inventory extension.</Preset1_desc>
   <Preset1_label></Preset1_label>
-  <Preset2_title>基本</Preset2_title>
-  <Preset2_desc>一個基礎的設置，角色可以使用一些相對輕的武器，並試圖在適當的時候使用它們。</Preset2_desc>
+  <Preset2_title>Basic</Preset2_title>
+  <Preset2_desc>A simple setup. Pawns can use a few light weapons and will attempt to use them in appropriate situations.</Preset2_desc>
   <Preset2_label></Preset2_label>
-  <Preset3_title>進階</Preset3_title>
-  <Preset3_desc>角色在武器選擇上更具有創造性，但仍然是那些試圖在危險的邊緣世界生存的人所期望的。</Preset3_desc>
+  <Preset3_title>Advanced</Preset3_title>
+  <Preset3_desc>Pawns get more creative with their weapon selection, but still remain within what one would expect possible from regular people trying to survive on a dangerous rimworld.</Preset3_desc>
   <Preset3_label></Preset3_label>
-  <Preset4_title>大師</Preset4_title>
-  <Preset4_desc>把它們全都帶上！速射機槍？帶兩個！長矛？我把所有的東西都裝進背包了！</Preset4_desc>
+  <Preset4_title>Excessive</Preset4_title>
+  <Preset4_desc>Bring all of it! Minigun? Bring two! Spears? I've got a whole collection in my backpack!</Preset4_desc>
   <Preset4_label></Preset4_label>
-  <Preset5_title>格鬥者</Preset5_title>
-  <Preset5_desc>所有人都會額外攜帶近戰武器。</Preset5_desc>
+  <Preset5_title>Brawler mode</Preset5_title>
+  <Preset5_desc>Melee sidearms for everyone.</Preset5_desc>
   <Preset5_label></Preset5_label>
 
 
-  <SidearmPickupFail_NoFreeSpace>沒有剩餘空間了</SidearmPickupFail_NoFreeSpace>
-  <SidearmPickupFail_TooHeavyForSidearmMelee>這個近戰副武器太重了</SidearmPickupFail_TooHeavyForSidearmMelee>
-  <SidearmPickupFail_TooHeavyForSidearmRanged>這個遠程副武器太重了</SidearmPickupFail_TooHeavyForSidearmRanged>
-  <SidearmPickupFail_TooHeavyForSidearm>這個副武器太重了</SidearmPickupFail_TooHeavyForSidearm>
-  <SidearmPickupFail_SidearmsTooHeavyMelee>近戰武器過重</SidearmPickupFail_SidearmsTooHeavyMelee>
-  <SidearmPickupFail_SidearmsTooHeavyRanged>遠程武器過重</SidearmPickupFail_SidearmsTooHeavyRanged>
-  <SidearmPickupFail_SidearmsTooHeavyInTotal>裝備過重</SidearmPickupFail_SidearmsTooHeavyInTotal>
-  <SidearmPickupFail_NotASidearm>不是一個副武器</SidearmPickupFail_NotASidearm>
-  <SidearmPickupFail_NotASidearmMelee>不是一個副武器</SidearmPickupFail_NotASidearmMelee>
-  <SidearmPickupFail_NotASidearmRanged>不是一個副武器</SidearmPickupFail_NotASidearmRanged>
-  <SidearmPickupFail_AllSlotsFull>槽位已滿</SidearmPickupFail_AllSlotsFull>
-  <SidearmPickupFail_MeleeSlotsFull>近戰槽位已滿</SidearmPickupFail_MeleeSlotsFull>
-  <SidearmPickupFail_RangedSlotsFull>遠程槽位已滿</SidearmPickupFail_RangedSlotsFull>
-  <SidearmPickupFail_NotAToolForPacifist>不是一個工具，{0}無法戰鬥。</SidearmPickupFail_NotAToolForPacifist>
-  <SidearmPickupPass>沒有問題</SidearmPickupPass>
-  <AsSidearm>（作為副武器）</AsSidearm>
-  <AsTool>（作為工具）</AsTool>
+  <SidearmPickupFail_NoFreeSpace>No free space</SidearmPickupFail_NoFreeSpace>
+  <SidearmPickupFail_TooHeavyForSidearmMelee>Too heavy for a melee sidearm</SidearmPickupFail_TooHeavyForSidearmMelee>
+  <SidearmPickupFail_TooHeavyForSidearmRanged>Too heavy for a ranged sidearm</SidearmPickupFail_TooHeavyForSidearmRanged>
+  <SidearmPickupFail_TooHeavyForSidearm>Too heavy for a sidearm</SidearmPickupFail_TooHeavyForSidearm>
+  <SidearmPickupFail_SidearmsTooHeavyMelee>Melee loadout too heavy</SidearmPickupFail_SidearmsTooHeavyMelee>
+  <SidearmPickupFail_SidearmsTooHeavyRanged>Ranged loadout too heavy</SidearmPickupFail_SidearmsTooHeavyRanged>
+  <SidearmPickupFail_SidearmsTooHeavyInTotal>Loadout too heavy</SidearmPickupFail_SidearmsTooHeavyInTotal>
+  <SidearmPickupFail_NotASidearm>Not a sidearm</SidearmPickupFail_NotASidearm>
+  <SidearmPickupFail_NotASidearmMelee>Not a sidearm</SidearmPickupFail_NotASidearmMelee>
+  <SidearmPickupFail_NotASidearmRanged>Not a sidearm</SidearmPickupFail_NotASidearmRanged>
+  <SidearmPickupFail_AllSlotsFull>Slots full</SidearmPickupFail_AllSlotsFull>
+  <SidearmPickupFail_MeleeSlotsFull>Melee slots full</SidearmPickupFail_MeleeSlotsFull>
+  <SidearmPickupFail_RangedSlotsFull>Ranged slots full</SidearmPickupFail_RangedSlotsFull>
+  <SidearmPickupFail_NotAToolForPacifist>Not a tool. {0} is incapable of violence.</SidearmPickupFail_NotAToolForPacifist>
+  <SidearmPickupFail_NotYetBladelinkBonded>Not yet bonded</SidearmPickupFail_NotYetBladelinkBonded>
+  <SidearmPickupPass>No issue</SidearmPickupPass>
+  <AsSidearm> as sidearm</AsSidearm>
+  <AsTool> as tool</AsTool>
 
-  <Preset_option_NoneApplied>無</Preset_option_NoneApplied>
-  <Preset_option_Custom>自定義</Preset_option_Custom>
-  <Preset_option_Lite>簡潔</Preset_option_Lite>
-  <Preset_option_Disabled>禁用</Preset_option_Disabled>
-  <Preset_option_LoadoutOnly>僅裝備</Preset_option_LoadoutOnly>
-  <Preset_option_Basic>基本</Preset_option_Basic>
-  <Preset_option_Advanced>進階</Preset_option_Advanced>
-  <Preset_option_Excessive>大師</Preset_option_Excessive>
-  <Preset_option_Brawler>格鬥者</Preset_option_Brawler>
+  <Preset_option_NoneApplied>None</Preset_option_NoneApplied>
+  <Preset_option_Custom>Custom</Preset_option_Custom>
+  <Preset_option_Lite>Lite</Preset_option_Lite>
+  <Preset_option_Disabled>Disabled</Preset_option_Disabled>
+  <Preset_option_LoadoutOnly>Loadout only</Preset_option_LoadoutOnly>
+  <Preset_option_Basic>Basic</Preset_option_Basic>
+  <Preset_option_Advanced>Advanced</Preset_option_Advanced>
+  <Preset_option_Excessive>Excessive</Preset_option_Excessive>
+  <Preset_option_Brawler>Brawler</Preset_option_Brawler>
 
-  <WeaponListKind_option_Both>全部</WeaponListKind_option_Both>
-  <WeaponListKind_option_Melee>近戰</WeaponListKind_option_Melee>
-  <WeaponListKind_option_Ranged>遠程</WeaponListKind_option_Ranged>
+  <WeaponListKind_option_Both>Both</WeaponListKind_option_Both>
+  <WeaponListKind_option_Melee>Melee</WeaponListKind_option_Melee>
+  <WeaponListKind_option_Ranged>Ranged</WeaponListKind_option_Ranged>
 
-  <TribalWeapons>部落</TribalWeapons>
-  <NonTribalWeapons>不作為部落用</NonTribalWeapons>
+  <TribalWeapons>Tribal</TribalWeapons>
+  <NonTribalWeapons>Not tribal</NonTribalWeapons>
 
-  <ConsideredSidearms>副武器</ConsideredSidearms>
-  <NotConsideredSidearms>不作為副武器</NotConsideredSidearms>
+  <ConsideredSidearms>Sidearms</ConsideredSidearms>
+  <NotConsideredSidearms>Not sidearms</NotConsideredSidearms>
 
-  <LockedWeaponSwitch>不能自動切換（遠程武器）</LockedWeaponSwitch>
-  <UnlockedWeaponSwitch>可以自動切換（遠程武器）</UnlockedWeaponSwitch>
+  <LockedWeaponSwitch>Cannot autoswitch (ranged)</LockedWeaponSwitch>
+  <UnlockedWeaponSwitch>Can autoswitch (ranged)</UnlockedWeaponSwitch>
 
-  <WeaponSwitchAutolockOn>點擊以禁止切換副武器</WeaponSwitchAutolockOn>
-  <WeaponSwitchAutolockOff>禁止</WeaponSwitchAutolockOff>
+  <WeaponSwitchAutolockOn>Lock autoswitch on draw</WeaponSwitchAutolockOn>
+  <WeaponSwitchAutolockOff>Off</WeaponSwitchAutolockOff>
 
-  <DrawSidearm_gizmoTitle>取出</DrawSidearm_gizmoTitle>
-  <SidearmPreference_Ranged>使用遠程武器</SidearmPreference_Ranged>
-  <SidearmPreference_Skill>根據技能或興趣使用武器</SidearmPreference_Skill>
-  <SidearmPreference_Melee>使用近戰武器</SidearmPreference_Melee>
-  <DrawSidearm_gizmoTooltipRanged>左鍵將{0}設置為默認遠程武器。\n右鍵點擊丟下{0}。</DrawSidearm_gizmoTooltipRanged>
-  <DrawSidearm_gizmoTooltipMelee>左鍵將{0}設置為首選近戰武器。\n右鍵點擊丟下{0}。</DrawSidearm_gizmoTooltipMelee>
-  <DrawSidearm_gizmoTooltipRangedDefault>左鍵點擊強制使用{0}。\n右鍵點擊將{0}取消默認遠程武器。</DrawSidearm_gizmoTooltipRangedDefault>
-  <DrawSidearm_gizmoTooltipMeleePreferred>左鍵點擊強制使用{0}。\n右鍵點擊將{0}取消首選近戰武器。</DrawSidearm_gizmoTooltipMeleePreferred>
-  <DrawSidearm_gizmoTooltipForced>右鍵點擊取消{0}的強制使用。</DrawSidearm_gizmoTooltipForced>
-  <DrawSidearm_gizmoTooltipWhileDrafted>左鍵點擊強制使用{0}直到戰鬥結束。</DrawSidearm_gizmoTooltipWhileDrafted>
-  <DrawSidearm_gizmoTooltipForcedWhileDrafted>右鍵點擊取消{0}的強制使用。</DrawSidearm_gizmoTooltipForcedWhileDrafted>
-  <DrawSidearm_gizmoTooltipMemory>右鍵以忽略{0}。</DrawSidearm_gizmoTooltipMemory>
-  <DrawSidearm_gizmoTooltipMemoryWhileDrafted>徵召時無法交互。</DrawSidearm_gizmoTooltipMemoryWhileDrafted>
-  <DrawSidearm_gizmoTooltipUnarmed>左鍵點擊切換至徒手戰鬥。</DrawSidearm_gizmoTooltipUnarmed>
-  <DrawSidearm_gizmoTooltipUnarmedPreferred>左鍵點擊強制徒手格鬥。\n右鍵點擊取消強制徒手並應用首選近戰武器設置。</DrawSidearm_gizmoTooltipUnarmedPreferred>
-  <DrawSidearm_gizmoTooltipUnarmedForced>右鍵點擊取消強制徒手格鬥。</DrawSidearm_gizmoTooltipUnarmedForced>
-  <DrawSidearm_gizmoTooltipUnarmedWhileDrafted>左鍵點擊在這場戰鬥中強制徒手格鬥。</DrawSidearm_gizmoTooltipUnarmedWhileDrafted>
-  <DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>右鍵點擊取消強制徒手格鬥。</DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>
+  <DrawSidearm_gizmoTitle>Sidearms</DrawSidearm_gizmoTitle>
+  <SidearmPreference_Ranged>Use ranged weapons.</SidearmPreference_Ranged>
+  <SidearmPreference_Skill>Use weapons according to own skill or passion.</SidearmPreference_Skill>
+  <SidearmPreference_Melee>Use melee weapons.</SidearmPreference_Melee>
+  <DrawSidearm_gizmoTooltipRanged>Left click to set {0} as default ranged weapon.
+Right click to drop {0}.</DrawSidearm_gizmoTooltipRanged>
+  <DrawSidearm_gizmoTooltipMelee>Left click to set {0} as preferred melee weapon.
+Right click to drop {0}.</DrawSidearm_gizmoTooltipMelee>
+  <DrawSidearm_gizmoTooltipRangedDefault>Left click to force use of {0}.
+Right click to unset {0} as default ranged weapon.</DrawSidearm_gizmoTooltipRangedDefault>
+  <DrawSidearm_gizmoTooltipMeleePreferred>Left click to force use of {0}.
+Right click to remove melee weapon preference of {0}.</DrawSidearm_gizmoTooltipMeleePreferred>
+  <DrawSidearm_gizmoTooltipForced>Right click to remove forced use of {0}.</DrawSidearm_gizmoTooltipForced>
+  <DrawSidearm_gizmoTooltipWhileDrafted>Left click to force use of {0} until end of combat.</DrawSidearm_gizmoTooltipWhileDrafted>
+  <DrawSidearm_gizmoTooltipForcedWhileDrafted>Right click to remove forced use of {0}.</DrawSidearm_gizmoTooltipForcedWhileDrafted>
+  <DrawSidearm_gizmoTooltipMemory>Right click to forget about {0}.</DrawSidearm_gizmoTooltipMemory>
+  <DrawSidearm_gizmoTooltipMemoryWhileDrafted>No interaction while drafted.</DrawSidearm_gizmoTooltipMemoryWhileDrafted>
+  <DrawSidearm_gizmoTooltipUnarmed>Left click to set unarmed combat as preferred melee option.</DrawSidearm_gizmoTooltipUnarmed>
+  <DrawSidearm_gizmoTooltipUnarmedPreferred>Left click to force use of unarmed combat. 
+Right click to remove unarmed combat as preferred melee option.</DrawSidearm_gizmoTooltipUnarmedPreferred>
+  <DrawSidearm_gizmoTooltipUnarmedForced>Right click to remove forced use of unarmed combat.</DrawSidearm_gizmoTooltipUnarmedForced>
+  <DrawSidearm_gizmoTooltipUnarmedWhileDrafted>Left click to force use of unarmed combat until end of combat.</DrawSidearm_gizmoTooltipUnarmedWhileDrafted>
+  <DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>Right click to remove forced use of unarmed combat.</DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>
+  <DrawSidearm_blocked>Weapon unusable</DrawSidearm_blocked>
 
-  <Alert_MissingSidearm_label>殖民者遺失副武器</Alert_MissingSidearm_label>
-  <Alert_MissingPrimary_label>殖民者遺失主武器</Alert_MissingPrimary_label>
+  <Alert_MissingSidearm_label>Colonist missing sidearm</Alert_MissingSidearm_label>
+  <Alert_MissingPrimary_label>Colonist missing primary weapon</Alert_MissingPrimary_label>
 
-  <Alert_MissingSidearm_desc>這些殖民者遺失了一個或多個副武器：\n\n{0}</Alert_MissingSidearm_desc>
-  <Alert_MissingPrimary_desc>這些殖民者遺失了一個或多個主武器：\n\n{0}</Alert_MissingPrimary_desc>
+  <Alert_MissingSidearm_desc>These colonists are missing one or more of their sidearms:\n\n{0}</Alert_MissingSidearm_desc>
+  <Alert_MissingPrimary_desc>These colonists are missing their primary weapon:\n\n{0}</Alert_MissingPrimary_desc>
 
   <!-- Legacy -->
-  <DropMode_option_Panic>近戰</DropMode_option_Panic>
-  <DropMode_option_PanicOrRange>戰鬥狀態</DropMode_option_PanicOrRange>
+  <DropMode_option_Panic>In distress</DropMode_option_Panic>
+  <DropMode_option_PanicOrRange>In combat</DropMode_option_PanicOrRange>
 
-  <SidearmsEnableNeolithicExtension_desc>允許部落使用更多的副武器。</SidearmsEnableNeolithicExtension_desc>
-  <SidearmsEnableNeolithicExtension_title>擴展部落副武器</SidearmsEnableNeolithicExtension_title>
+  <SidearmsEnableNeolithicExtension_desc>Allow more weapons to be used as sidearms by tribals.</SidearmsEnableNeolithicExtension_desc>
+  <SidearmsEnableNeolithicExtension_title>Extend neolithic sidearms</SidearmsEnableNeolithicExtension_title>
   <SidearmsNeolithicExtension_desc></SidearmsNeolithicExtension_desc>
-  <SidearmsNeolithicExtension_title>石器時代副武器選擇</SidearmsNeolithicExtension_title>
+  <SidearmsNeolithicExtension_title>Sidearms considered neolithic</SidearmsNeolithicExtension_title>
 
 </LanguageData>
