@@ -23,7 +23,7 @@
   <CQCTargetOnly_desc>是否針對當前目標的攻擊做出反應？</CQCTargetOnly_desc>
 
   <DropMode_title>拋棄準則</DropMode_title>
-  <DropMode_desc>什麼情況下，殖民者會拋下武器而不是放回物品欄？</DropMode_desc>
+  <DropMode_desc>什麼情況下，殖民者會拋下武器而不是放回武器欄？</DropMode_desc>
   <FumbleRecoveryChance_title>減少摸找機率</FumbleRecoveryChance_title>
   <FumbleRecoveryChance_hint>垂直軸是避免摸找的機率
   水平軸是近戰或遠程技能（取決於哪個更好）</FumbleRecoveryChance_hint>
@@ -31,7 +31,7 @@
   <ReEquipOutOfCombat_title>自動整備－戰後</ReEquipOutOfCombat_title>
   <ReEquipOutOfCombat_desc>結束戰鬥後，自動重新裝備拋棄的武器。</ReEquipOutOfCombat_desc>
   <ReEquipBest_title>自動整備－最佳</ReEquipBest_title>
-  <ReEquipBest_desc>優先搜尋品質更好的武器【而非距離】並裝備上。</ReEquipBest_desc>
+  <ReEquipBest_desc>優先搜尋並裝備上品質更好的武器【而非距離】。</ReEquipBest_desc>
   <ReEquipInCombat_title>自動整備－戰鬥中</ReEquipInCombat_title>
   <ReEquipInCombat_desc>在戰鬥中被動反應時，自動重新裝備武器。</ReEquipInCombat_desc>
 
@@ -47,7 +47,7 @@
   <HideSidearmsInCaravanDialogs_desc>在交易介面隱藏副武器，避免意外販售。（實驗性功能，由XT-0xFF@Github實現）</HideSidearmsInCaravanDialogs_desc>
 
   <ShowAlertsMissingSidearm_title>顯示副武器警報</ShowAlertsMissingSidearm_title>
-  <ShowAlertsMissingSidearm_desc>顯示物品欄遺失副武器卻沒有武器裝備的警報。</ShowAlertsMissingSidearm_desc>
+  <ShowAlertsMissingSidearm_desc>顯示武器欄遺失副武器卻沒有武器裝備的警報。</ShowAlertsMissingSidearm_desc>
 
   <SidearmsPlaySounds_title>播放音效</SidearmsPlaySounds_title>
   <SidearmsPlaySounds_desc>當切換武器時播放音效。</SidearmsPlaySounds_desc>
@@ -67,14 +67,14 @@
   <LimitModeSingleMelee_desc>對單獨的近戰副武器有什麼限制。  </LimitModeSingleMelee_desc>
   <LimitModeSingleRanged_title>副武限制－遠程 </LimitModeSingleRanged_title>
   <LimitModeSingleRanged_desc>對單獨的遠程副武器有什麼限制。  </LimitModeSingleRanged_desc>
-  <LimitModeAmount_title>副武總限制</LimitModeAmount_title>
+  <LimitModeAmount_title>副武－總限制</LimitModeAmount_title>
   <LimitModeAmount_desc>對所有副武器有什麼限制。</LimitModeAmount_desc>
   <LimitModeAmountMelee_title>副武總限制－近戰</LimitModeAmountMelee_title>
   <LimitModeAmountMelee_desc>對所有近戰副武器有什麼限制。</LimitModeAmountMelee_desc>
   <LimitModeAmountRanged_title>副武總限制－遠程</LimitModeAmountRanged_title>
   <LimitModeAmountRanged_desc>對所有遠程副武器有什麼限制。</LimitModeAmountRanged_desc>
 
-  <LimitModeAmountTotal_title>副武總限制</LimitModeAmountTotal_title>
+  <LimitModeAmountTotal_title>副武－總限制</LimitModeAmountTotal_title>
   <LimitModeAmountTotal_desc>所有副武器有哪些限制。</LimitModeAmountTotal_desc>
 
   <MaximumMassAmountAbsolute_title>副武－總重限制</MaximumMassAmountAbsolute_title>
@@ -96,7 +96,7 @@
   <SidearmSelection_title>副武器選擇</SidearmSelection_title>
   <SidearmSelection_desc></SidearmSelection_desc>
   <SingleshotAutoSwitch_title>自動切換－單發武器</SingleshotAutoSwitch_title>
-  <SingleshotAutoSwitch_desc>是否在使用完單次使用武器後，自動切換到副武器？</SingleshotAutoSwitch_desc>
+  <SingleshotAutoSwitch_desc>是否在使用完一次性武器後，自動切換副武器？</SingleshotAutoSwitch_desc>
   <SpeedSelectionBiasMelee_title>速度偏好 (近戰)</SpeedSelectionBiasMelee_title>
   <SpeedSelectionBiasMelee_desc>殖民者傾向於選擇攻擊速度更快的武器。</SpeedSelectionBiasMelee_desc>
   <SpeedSelectionBiasRanged_title>速度偏好 (遠程)</SpeedSelectionBiasRanged_title>
@@ -142,7 +142,7 @@
 
   <DropMode_option_Never>永不</DropMode_option_Never>
   <DropMode_option_InDistress>遇襲</DropMode_option_InDistress>
-  <DropMode_option_InCombat>近戰</DropMode_option_InCombat>
+  <DropMode_option_InCombat>戰鬥</DropMode_option_InCombat>
   <DropMode_option_Always>總是</DropMode_option_Always>
 
   <Fumbled>Fumble!</Fumbled>
@@ -227,10 +227,8 @@
   <SidearmPreference_Ranged>使用遠程武器。</SidearmPreference_Ranged>
   <SidearmPreference_Skill>根據自己的技能或熱情使用武器。</SidearmPreference_Skill>
   <SidearmPreference_Melee>使用近戰武器。</SidearmPreference_Melee>
-  <DrawSidearm_gizmoTooltipRanged>Left click to set {0} as default ranged weapon.
-Right click to drop {0}.</DrawSidearm_gizmoTooltipRanged>
-  <DrawSidearm_gizmoTooltipMelee>Left click to set {0} as preferred melee weapon.
-Right click to drop {0}.</DrawSidearm_gizmoTooltipMelee>
+  <DrawSidearm_gizmoTooltipRanged>左鍵設為默認。\n右鍵為拋下{0}。</DrawSidearm_gizmoTooltipRanged>
+  <DrawSidearm_gizmoTooltipMelee>左鍵設為首選。右鍵為拋下{0}。</DrawSidearm_gizmoTooltipMelee>
   <DrawSidearm_gizmoTooltipRangedDefault>Left click to force use of {0}.
 Right click to unset {0} as default ranged weapon.</DrawSidearm_gizmoTooltipRangedDefault>
   <DrawSidearm_gizmoTooltipMeleePreferred>Left click to force use of {0}.
@@ -248,15 +246,15 @@ Right click to remove unarmed combat as preferred melee option.</DrawSidearm_giz
   <DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>Right click to remove forced use of unarmed combat.</DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>
   <DrawSidearm_blocked>Weapon unusable</DrawSidearm_blocked>
 
-  <Alert_MissingSidearm_label>殖民者缺少副武器  </Alert_MissingSidearm_label>
-  <Alert_MissingPrimary_label>殖民者缺少主武器  </Alert_MissingPrimary_label>
+  <Alert_MissingSidearm_label>缺少副武器</Alert_MissingSidearm_label>
+  <Alert_MissingPrimary_label>缺少主武器</Alert_MissingPrimary_label>
 
   <Alert_MissingSidearm_desc>以下殖民者缺少一個或多個副武器：\n\n{0}  </Alert_MissingSidearm_desc>
   <Alert_MissingPrimary_desc>以下殖民者缺少主武器：\n\n{0}</Alert_MissingPrimary_desc>
 
   <!-- Legacy -->
   <DropMode_option_Panic>遇襲</DropMode_option_Panic>
-  <DropMode_option_PanicOrRange>In combat</DropMode_option_PanicOrRange>
+  <DropMode_option_PanicOrRange>戰鬥</DropMode_option_PanicOrRange>
 
   <SidearmsEnableNeolithicExtension_title>擴展副武－新石器時代</SidearmsEnableNeolithicExtension_title>
   <SidearmsEnableNeolithicExtension_desc>允許原始部落、中世紀的派系使用更多的武器作為副武器。</SidearmsEnableNeolithicExtension_desc>
