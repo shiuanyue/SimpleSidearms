@@ -1,4 +1,6 @@
-﻿using PeteTimesSix.SimpleSidearms.Intercepts;
+﻿using HarmonyLib;
+using PeteTimesSix.SimpleSidearms.Compat;
+using PeteTimesSix.SimpleSidearms.Intercepts;
 using RimWorld;
 using SimpleSidearms.rimworld;
 using System;
@@ -7,6 +9,7 @@ using System.Linq;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
+using static HarmonyLib.AccessTools;
 using static PeteTimesSix.SimpleSidearms.SimpleSidearms;
 using static PeteTimesSix.SimpleSidearms.Utilities.Enums;
 
@@ -14,6 +17,73 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 {
     public static class WeaponAssingment
     {
+        public static bool EquipSpecificWeaponFromInventoryAsOffhand(Pawn pawn, ThingWithComps weapon, bool dropCurrent, bool intentionalDrop)
+        {
+            if (!pawn.IsValidSidearmsCarrier())
+                return false;
+
+            CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
+            if (pawnMemory == null)
+                return false;
+
+            if(!(Tacticowl.active && Tacticowl.dualWieldActive()))
+            {
+                Log.Error("SS: EquipSpecificWeaponFromInventoryAsOffhand called, but Tacticowl is not active!");
+                return false;
+            }
+
+            if (Tacticowl.getOffHand(pawn, out ThingWithComps currentOffhand))
+            {
+                UnequipOffhand(pawn, currentOffhand, dropCurrent, intentionalDrop);
+            }
+
+            pawn.inventory.innerContainer.Remove(weapon);
+            //pawn.equipment.MakeRoomFor(weapon);
+            Tacticowl.setOffHand(pawn, weapon, removing: false);
+
+            if (weapon.def.soundInteract != null && Settings.PlaySounds)
+            {
+                weapon.def.soundInteract.PlayOneShot(new TargetInfo(pawn.Position, pawn.Map, false));
+            }
+
+            return true;
+        }
+
+        public static void UnequipOffhand(Pawn pawn, ThingWithComps offhand, bool dropCurrent, bool intentionalDrop)
+        {
+            if (!(Tacticowl.active && Tacticowl.dualWieldActive()))
+            {
+                Log.Error("SS: UnequipOffhand called, but Tacticowl is not active!");
+                return;
+            }
+
+            CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
+
+            Tacticowl.setOffHand(pawn, offhand, removing: true);
+            //drop
+            if (dropCurrent)
+            {
+                if (!intentionalDrop)
+                    DoFumbleMote(pawn);
+                pawnMemory.InformOfDroppedSidearm(offhand, intentionalDrop);
+                //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = true;
+                pawn.equipment.TryDropEquipment(offhand, out ThingWithComps droppedItem, pawn.Position, false);
+                //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = false;
+            }
+            //or put it in inventory
+            else
+            {
+                bool addedToInventory = pawn.inventory.innerContainer.TryAddOrTransfer(offhand, true);
+                if (!addedToInventory)
+                    Log.Warning(String.Format("SS: Failed to place offhand equipment {0} into inventory on pawn {1} (colonist: {2}) (dropping: {3}, current drop mode: {4}). Aborting swap. Please report this!",
+                       offhand != null ? offhand.LabelCap : "NULL",
+                       pawn?.LabelCap,
+                       pawn?.IsColonist,
+                       dropCurrent,
+                       Settings.FumbleMode
+                    ));
+            }
+        }
 
         public static bool equipSpecificWeaponTypeFromInventory(Pawn pawn, ThingDefStuffDefPair weapon, bool dropCurrent, bool intentionalDrop)
         {
@@ -36,7 +106,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
         public static bool equipSpecificWeapon(Pawn pawn, ThingWithComps weapon, bool dropCurrent, bool intentionalDrop)
         {
-            if (!pawn.IsValidSidearmsCarrier())
+            if (!pawn.IsValidSidearmsCarrierRightNow())
                 return false;
 
             CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
@@ -45,64 +115,78 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
             if (weapon == pawn.equipment.Primary) //attepmpting to equip already-equipped weapon
             {
-                Log.Warning("attepmpting to equip already-equipped weapon");
+                Log.Warning("SS: Attepmpted to equip already-equipped weapon!");
                 return false;
+            }
+
+            ThingWithComps storedOffhand = null;
+
+            if (Tacticowl.active && Tacticowl.dualWieldActive())
+            {
+                if (weapon is null || Tacticowl.isTwoHanded(weapon.def)) //cannot keep an offhand weapon with no primary or a two-handed primary
+                {
+                    if (Tacticowl.getOffHand(pawn, out ThingWithComps currentOffhand))
+                    {
+                        UnequipOffhand(pawn, currentOffhand, dropCurrent, intentionalDrop);
+                    }
+                }
+                else if(Tacticowl.isOffHand(weapon)) //equipping weapon already wielded as offhand, need to stop offhanding first
+                {
+                    pawn.equipment.Remove(weapon);
+                    Tacticowl.setOffHand(pawn, weapon, removing: true);
+                }
+                else if(Tacticowl.getOffHand(pawn, out ThingWithComps currentOffHand))
+                {
+                    storedOffhand = currentOffHand;
+                    //need to briefly remove offhander or bad things happen
+                    pawn.equipment.Remove(currentOffHand);
+                    Tacticowl.setOffHand(pawn, weapon, removing: true);
+                }
             }
 
             if (!Settings.AllowBlockedWeaponUse && !StatCalculator.canUseSidearmInstance(weapon, pawn, out string reason))
             {
-                Log.Warning($"blocked equip of {weapon.Label} at equip-time because of: {reason}");
+                Log.Warning($"SS: Blocked equip of {weapon.Label} at equip-time because of: {reason}");
                 return false;
             }
 
             var currentPrimary = pawn.equipment.Primary;
 
+            if(currentPrimary != null)
+            {
                 //drop current on the ground
-            if (dropCurrent && pawn.equipment.Primary != null)
-            {
-                if (!intentionalDrop)
-                    DoFumbleMote(pawn);
-                pawnMemory.InformOfDroppedSidearm(weapon, intentionalDrop);
-                Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = true;
-                pawn.equipment.TryDropEquipment(pawn.equipment.Primary, out ThingWithComps droppedItem, pawn.Position, false);
-                Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = false;
-            }   
+                if (dropCurrent)
+                {
+                    if (!intentionalDrop)
+                    {
+                        DoFumbleMote(pawn);
+                    }
+                    pawnMemory.InformOfDroppedSidearm(weapon, intentionalDrop);
+                    //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = true;
+                    pawn.equipment.TryDropEquipment(pawn.equipment.Primary, out ThingWithComps droppedItem, pawn.Position, false);
+                    //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = false;
+                }
                 //or put it in inventory
-            else if (pawn.equipment.Primary != null)
-            {
-                ThingWithComps oldPrimary = pawn.equipment.Primary;
-                bool addedToInventory = pawn.inventory.innerContainer.TryAddOrTransfer(oldPrimary, true);
-                //pawn.equipment.Remove(oldPrimary);
-                //bool addedToInventory = pawn.inventory.innerContainer.TryAdd(oldPrimary, true);
-                if(!addedToInventory)
-                    Log.Warning(String.Format("Failed to place primary equipment {0} (initially was {1}) into inventory when swapping to {2} on pawn {3} (colonist: {4}) (dropping: {5}, current drop mode: {6}). Aborting swap. Please report this!",
-                       pawn.equipment.Primary != null ? pawn.equipment.Primary.LabelCap : "NULL",
-                       currentPrimary != null ? currentPrimary.LabelCap : "NULL",
-                       weapon != null ? weapon.LabelCap : "NULL",
-                       pawn?.LabelCap,
-                       pawn?.IsColonist,
-                       dropCurrent,
-                       Settings.FumbleMode
-                    ));
-            }
-
-            if (pawn.equipment.Primary != null) 
-            {
-                Log.Warning(String.Format("Failed to remove current primary equipment {0} (initially was {1}) when swapping to {2} on pawn {3} (colonist: {4}) (dropping: {5}, current drop mode: {6}). Aborting swap. Please report this!", 
-                    pawn.equipment.Primary != null ? pawn.equipment.Primary.LabelCap : "NULL", 
-                    currentPrimary != null ? currentPrimary.LabelCap : "NULL", 
-                    weapon != null ? weapon.LabelCap : "NULL", 
-                    pawn?.LabelCap,
-                    pawn?.IsColonist,
-                    dropCurrent,
-                    Settings.FumbleMode
-                    ));
-                return false;
+                else
+                {
+                    bool addedToInventory = pawn.inventory.innerContainer.TryAddOrTransfer(currentPrimary, true);
+                    if (!addedToInventory)
+                    {
+                        Log.Warning(String.Format("SS: Failed to place primary equipment {0} (initially was {1}) into inventory when swapping to {2} on pawn {3} (colonist: {4}) (dropping: {5}, current drop mode: {6}). Aborting swap. Please report this!",
+                           pawn.equipment.Primary != null ? pawn.equipment.Primary.LabelCap : "NULL",
+                           currentPrimary != null ? currentPrimary.LabelCap : "NULL",
+                           weapon != null ? weapon.LabelCap : "NULL",
+                           pawn?.LabelCap,
+                           pawn?.IsColonist,
+                           dropCurrent,
+                           Settings.FumbleMode
+                        ));
+                    }
+                }
             }
 
             if (weapon == null)
             {
-               
             }
             else
             {
@@ -111,9 +195,9 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
                 if (weapon.holdingOwner != null)
                     weapon.holdingOwner.Remove(weapon);
-                Pawn_EquipmentTracker_AddEquipment.addEquipmentSourcedBySimpleSidearms = true;
+                //Pawn_EquipmentTracker_AddEquipment.addEquipmentSourcedBySimpleSidearms = true;
                 pawn.equipment.AddEquipment(weapon as ThingWithComps);
-                Pawn_EquipmentTracker_AddEquipment.addEquipmentSourcedBySimpleSidearms = false;
+                //Pawn_EquipmentTracker_AddEquipment.addEquipmentSourcedBySimpleSidearms = false;
 
                 if (weapon.def.soundInteract != null && Settings.PlaySounds)
                 {
@@ -121,8 +205,14 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
                 }
             }
 
+            //put offhand back if it got briefly vanished
+            if(storedOffhand != null)
+            {
+                Tacticowl.setOffHand(pawn, storedOffhand, removing: false);
+            }
+
             //avoid hunting stackoverflowexception
-            if (pawn.jobs != null && pawn.jobs.curJob != null && pawn.jobs.curJob.def == JobDefOf.Hunt)
+            if (pawn.CurJobDef == JobDefOf.Hunt)
                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced, true);
 
             return true;
@@ -148,17 +238,28 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
         {
             //Log.Message("looking for a stat booster for stats " + String.Join(",", stats.Select(s => s.label))); ;
 
-            if (!pawn.IsValidSidearmsCarrier() || stats.Count == 0 || pawn.Drafted)
+            if (!pawn.IsValidSidearmsCarrierRightNow() || stats.Count == 0 || pawn.Drafted)
                 return false;
 
             CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
             if (pawnMemory == null)
                 return false;
 
-            ThingWithComps bestBooster = pawn.getCarriedWeapons(includeTools: true).Where(t =>
+            var candidates = pawn.getCarriedWeapons(includeTools: true).Where(t =>
             {
                 _ = t.toThingDefStuffDefPair().getBestStatBoost(stats, out bool found); return found;
-            }).OrderBy(t =>
+            });
+
+            if (VFECore.active && VFECore.offHandShield(pawn) != null)
+            {
+                candidates = candidates.Where(t => VFECore.usableWithShields(t.def));
+            }
+            if (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.getOffHand(pawn, out _)) //currenlty has offhanded weapon, filter to only one-handed
+            {
+                candidates = candidates.Where(t => Tacticowl.canBeOffHand(t.def));
+            }
+
+            ThingWithComps bestBooster = candidates.OrderBy(t =>
             {
                 return t.toThingDefStuffDefPair().getBestStatBoost(stats, out _);
             }).FirstOrDefault();
@@ -175,7 +276,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
         public static void equipBestWeaponFromInventoryByPreference(Pawn pawn, DroppingModeEnum dropMode, PrimaryWeaponMode? modeOverride = null, Pawn target = null)
         {
-            if (!pawn.IsValidSidearmsCarrier())
+            if (!pawn.IsValidSidearmsCarrierRightNow())
                 return;
             CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
             if (pawnMemory == null)
@@ -392,7 +493,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
                     //change targets if shooting something else, or has no set target (or nothing)
                     if (changed && (attacker != pawn.mindState.enemyTarget || pawn.mindState.enemyTarget == null))
                     {
-                        if (pawn.jobs.curJob.def == JobDefOf.AttackStatic)
+                        if (pawn.CurJobDef == JobDefOf.AttackStatic)
                         {
                             Job atkJob = JobMaker.MakeJob(JobDefOf.AttackMelee, attacker);
                             atkJob.maxNumMeleeAttacks = 1;
@@ -414,15 +515,12 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
         public static bool tryCQCWeaponSwapToMelee(Pawn pawn, Pawn target, DroppingModeEnum dropMode)
         {
-            if (!pawn.IsValidSidearmsCarrier())
+            if (!pawn.IsValidSidearmsCarrierRightNow())
                 return false;
 
             CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
 
             if (pawnMemory == null)
-                return false;
-
-            if (!pawn.RaceProps.Humanlike)
                 return false;
 
             if (pawn.equipment.Primary != null)
@@ -466,7 +564,15 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             return true;
         }
 
+        [Obsolete("use DropSidearm(Pawn pawn, ThingWithComps weapon, bool intentionalDrop, bool unmemorise) instead")]
         public static void dropSidearm(Pawn pawn, Thing weapon, bool intentionalDrop)
+        {
+            if (!(weapon is ThingWithComps weaponTyped))
+                return;
+            DropSidearm(pawn, weaponTyped, intentionalDrop, false);
+        }
+
+        public static void DropSidearm(Pawn pawn, ThingWithComps weapon, bool intentionalDrop, bool unmemorise)
         {
             if (weapon == null)
                 return;
@@ -476,11 +582,11 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             if (!intentionalDrop)
                 DoFumbleMote(pawn);
 
-            if (pawn.equipment.Primary == weapon)
+            if (pawn.equipment.Primary == weapon || (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.isOffHand(weapon)))
             {
-                Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = true;
-                pawn.equipment.TryDropEquipment(pawn.equipment.Primary, out _, pawn.Position, false);
-                Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = false;
+                //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = true;
+                pawn.equipment.TryDropEquipment(weapon, out _, pawn.Position, false);
+                //Pawn_EquipmentTracker_TryDropEquipment.dropEquipmentSourcedBySimpleSidearms = false;
             }
             else
             {
@@ -492,13 +598,16 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
                 else
                 {
                     pawn.inventory.innerContainer.TryDrop(weapon, pawn.Position, pawn.Map, ThingPlaceMode.Near, out _, null);
-                }   
+                }
             }
 
-            CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
-            if (pawnMemory == null)
-                return;
-            pawnMemory.InformOfDroppedSidearm(weapon, intentionalDrop);
+            if (unmemorise)
+            {
+                CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
+                if (pawnMemory == null)
+                    return;
+                pawnMemory.InformOfDroppedSidearm(weapon, intentionalDrop);
+            }
         }
     }
 }

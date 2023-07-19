@@ -1,4 +1,5 @@
 ﻿using PeteTimesSix.SimpleSidearms;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,10 @@ using static PeteTimesSix.SimpleSidearms.Utilities.Enums;
 
 namespace SimpleSidearms.rimworld
 {
+    [StaticConstructorOnStartup] //Just for _cache
     public class CompSidearmMemory : ThingComp
     {
+        public static Dictionary<int, CompSidearmMemory> _cache = new Dictionary<int, CompSidearmMemory>();
 
         public List<ThingDefStuffDefPair> rememberedWeapons = new List<ThingDefStuffDefPair>();
         public List<ThingDefStuffDefPair> RememberedWeapons
@@ -21,13 +24,10 @@ namespace SimpleSidearms.rimworld
             get
             {
                 if (rememberedWeapons == null)
-                    generateRememberedWeaponsFromEquipped();
+                    GenerateRememberedWeaponsFromEquipped();
                 if (!nullchecked)
                     NullChecks();
-                List<ThingDefStuffDefPair> fakery = new List<ThingDefStuffDefPair>();
-                foreach (var wep in rememberedWeapons)
-                    fakery.Add(wep);
-                return fakery;
+                return rememberedWeapons;
             }
         }
 
@@ -157,7 +157,7 @@ namespace SimpleSidearms.rimworld
 
         public Pawn Owner { get { return this.parent as Pawn; } }
 
-        public CompSidearmMemory() : base()
+        public override void PostPostMake()
         {
             if (Owner != null)
             {
@@ -177,31 +177,36 @@ namespace SimpleSidearms.rimworld
                     else
                         primaryWeaponMode = PrimaryWeaponMode.BySkill;
                 }
+
+                GenerateRememberedWeaponsFromEquipped();
+                _cache[Owner.thingIDNumber] = this;
             }
         }
 
-        public CompSidearmMemory(bool fillExisting)
+        public void GenerateRememberedWeaponsFromEquipped()
         {
             this.rememberedWeapons = new List<ThingDefStuffDefPair>();
-            if (fillExisting)
-            {
-                generateRememberedWeaponsFromEquipped();
-            }
-            if (Owner != null) //null owner should only come up when loading from savegames
-            {
-                
-            }
-        }
-
-        public void generateRememberedWeaponsFromEquipped()
-        {
-            this.rememberedWeapons = new List<ThingDefStuffDefPair>();
-            IEnumerable<ThingWithComps> carriedWeapons = Owner.getCarriedWeapons(includeTools: true);
+            IEnumerable<ThingWithComps> carriedWeapons = Owner.GetCarriedWeapons(includeTools: true);
             foreach (ThingWithComps weapon in carriedWeapons)
             {
                 ThingDefStuffDefPair pair = new ThingDefStuffDefPair(weapon.def, weapon.Stuff);
                 rememberedWeapons.Add(pair);
             }
+        }
+
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            //Self-destruct: animals don't need this comp
+
+            if( !Owner.IsValidSidearmsCarrier())
+            {
+                Owner.AllComps.Remove(this);
+                return;
+            }
+            if (_cache == null) _cache = new Dictionary<int, CompSidearmMemory>();
+            if (_cache.ContainsKey(Owner.thingIDNumber) && _cache[Owner.thingIDNumber] != this)
+                Log.Warning($"SS: Pawn {Owner} had snuck in their memory comp from the previous game!");
+            _cache[Owner.thingIDNumber] = this;
         }
 
         public override void PostExposeData()
@@ -229,16 +234,8 @@ namespace SimpleSidearms.rimworld
         {
             if (pawn == null)
                 return null;
-            if (!pawn.RaceProps.Humanlike)
-            {
-                Log.Warning("CompSidearmMemory accessed for non-humanlike pawn " + pawn.Label);
-                return null;
 
-            }
-            CompSidearmMemory memory = pawn.TryGetComp<CompSidearmMemory>();
-            if (memory == null)
-                return null;
-
+            _cache.TryGetValue(pawn.thingIDNumber, out CompSidearmMemory memory);
             return memory;
         }
 
@@ -391,11 +388,12 @@ namespace SimpleSidearms.rimworld
             if (weapon != null)
             {
                 ThingDefStuffDefPair weaponType = weapon.toThingDefStuffDefPair();
-                var carriedOfType = Owner.getCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
-                var rememberedOfType = rememberedWeapons.Where(w => w == weaponType);
+                //var carriedOfType = Owner.getCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
+                //var rememberedOfType = rememberedWeapons.Where(w => w == weaponType);
 
-                if (rememberedOfType.Count() < carriedOfType.Sum(c => c.stackCount))
-                    rememberedWeapons.Add(weapon.toThingDefStuffDefPair());
+                //if (rememberedOfType.Count() < carriedOfType.Sum(c => c.stackCount))
+                //Log.Message($"InformOfAddedSidearm on {parent} for weapon: {weapon}");
+                rememberedWeapons.Add(weapon.toThingDefStuffDefPair());
             }
         }
 
@@ -476,9 +474,9 @@ namespace SimpleSidearms.rimworld
             if (rememberedWeapons == null)
             {
                 //Log.Warning("Remembered weapons list of " + this.Owner.LabelCap + " was missing, regenerating...");
-                generateRememberedWeaponsFromEquipped();
+                GenerateRememberedWeaponsFromEquipped();
             }
-            for (int i = rememberedWeapons.Count() - 1; i >= 0; i--)
+            for (int i = rememberedWeapons.Count - 1; i >= 0; i--)
             {
                 try
                 {

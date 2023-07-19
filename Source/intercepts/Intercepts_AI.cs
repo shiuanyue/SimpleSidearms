@@ -57,7 +57,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                 toil.AddPreInitAction(delegate
                 {
                     Pawn pawn = toil.GetActor();
-                    if (pawn == null || !pawn.IsValidSidearmsCarrier())
+                    if (pawn == null || !pawn.IsValidSidearmsCarrierRightNow())
                         return;
 
                     CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
@@ -94,7 +94,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                 toil.AddFinishAction(delegate
                 {
                     Pawn pawn = toil.GetActor();
-                    if (pawn == null || !pawn.IsValidSidearmsCarrier())
+                    if (pawn == null || !pawn.IsValidSidearmsCarrierRightNow())
                         return;
 
                     CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
@@ -115,20 +115,12 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
     public static class PawnRenderer_CarryWeaponOpenly_Postfix
     {
         [HarmonyPostfix]
-        public static void CarryWeaponOpenly(ref PawnRenderer __instance, ref Pawn ___pawn, ref bool __result)
+        public static bool CarryWeaponOpenly(bool __result, Pawn ___pawn)
         {
-            if (!___pawn.IsValidSidearmsCarrier())
-                return;
-            if (__result == true)
-                return;
-            else
-            {
-                CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(___pawn);
-                if (pawnMemory != null && pawnMemory.autotoolToil != null) 
-                {
-                    __result = true;
-                }
-            }
+            if (__result == true || !___pawn.IsValidSidearmsCarrierRightNow())
+                return __result;
+            
+            return CompSidearmMemory.GetMemoryCompForPawn(___pawn) is CompSidearmMemory pawnMemory && pawnMemory.autotoolToil != null;
         }
     }
 
@@ -136,6 +128,12 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
     public static class AutoUndrafter_AutoUndraftTick_Postfix
     {
         public const int autoRetrieveDelay = 300;
+        private static AccessTools.FieldRef<AutoUndrafter, int> lastNonWaitingTick;
+
+        static AutoUndrafter_AutoUndraftTick_Postfix() 
+        {
+            lastNonWaitingTick = AccessTools.FieldRefAccess<AutoUndrafter, int>(AccessTools.Field(typeof(AutoUndrafter), "lastNonWaitingTick"));
+        }
 
         [HarmonyPostfix]
         public static void AutoUndraftTick(AutoUndrafter __instance, Pawn ___pawn)
@@ -145,16 +143,12 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             int tick = Find.TickManager.TicksGame;
             if (tick % 100 == 0)
             {
-                if (pawn != null && pawn.Map != null && pawn.jobs != null && pawn.jobs.curJob != null && pawn.jobs.curJob.def == JobDefOf.Wait_Combat && pawn.stances != null && pawn.stances.curStance is Stance_Mobile)
+                if (pawn != null && pawn.Map != null && pawn.CurJobDef == JobDefOf.Wait_Combat && pawn.stances != null && pawn.stances.curStance is Stance_Mobile)
                 {
                     //pawn.jobs.EndCurrentJob(JobCondition.Succeeded);
                     
                     WeaponAssingment.equipBestWeaponFromInventoryByPreference(pawn, DroppingModeEnum.Combat);
-
-                    BindingFlags bindFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
-                    FieldInfo field = (__instance.GetType()).GetField("lastNonWaitingTick", bindFlags);
-                    int lastNonWaitingTick = (int)field.GetValue(__instance);
-                    if (tick - lastNonWaitingTick > autoRetrieveDelay)
+                    if (tick - lastNonWaitingTick(__instance) > autoRetrieveDelay)
                     {
                         Job retrieval = JobGiver_RetrieveWeapon.TryGiveJobStatic(pawn, true);
                         if (retrieval != null)
@@ -174,7 +168,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             if (!__instance.Drafted)
             {
                 Pawn pawn = __instance.pawn;
-                if (!pawn.IsValidSidearmsCarrier())
+                if (!pawn.IsValidSidearmsCarrierRightNow())
                     return;
                 if (pawn.IsColonist)
                 {
@@ -191,7 +185,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
     [HarmonyPatch(typeof(Stance_Warmup), "StanceTick")]
     public static class Stance_Warmup_StanceTick_Postfix
     {
-
+        static Type jobDriver_AttackStatic = typeof(JobDriver_AttackStatic);
         public struct AttackJobDataStore
         {
             bool playerForced;
@@ -201,7 +195,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
 
             public static AttackJobDataStore? FromJob(Job job) 
             {
-                if (job == null || job.def.driverClass != typeof(JobDriver_AttackStatic))
+                if (job == null || job.def.driverClass != jobDriver_AttackStatic)
                     return null;
                 return new AttackJobDataStore()
                 {
@@ -224,20 +218,16 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
         [HarmonyPostfix]
         public static void StanceTick(Stance_Warmup __instance)
         {
-
             if (Settings.RangedCombatAutoSwitch == false)
                 return;
             Pawn pawn = __instance.stanceTracker.pawn;
             if (IsHunting(pawn))
                 return;
-            if (!pawn.IsValidSidearmsCarrier())
+            if (!pawn.IsValidSidearmsCarrierRightNow())
                 return;
             if (!(__instance.verb is Verb_Shoot))
                 return;
-            /*if (!SimpleSidearms.CEOverride && !(__instance.verb is Verb_Shoot))
-                return;
-            if (SimpleSidearms.CEOverride && !(CERangedVerb.IsAssignableFrom(__instance.verb.GetType())))
-                return;*/
+
             float statValue = pawn.GetStatValue(StatDefOf.AimingDelayFactor, true);
             int ticks = (__instance.verb.verbProps.warmupTime * statValue).SecondsToTicks();
             
@@ -293,7 +283,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
     }
 
 
-    [HarmonyPatch(typeof(Pawn_HealthTracker), "MakeDowned")]
+    /*[HarmonyPatch(typeof(Pawn_HealthTracker), "MakeDowned")]
     public static class Pawn_HealthTracker_MakeDowned
     {
         //EW EW EW GLOBAL FLAG EW EW
@@ -312,21 +302,21 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             //Log.Message("makeDowned finalizer");
             Pawn_HealthTracker_MakeDowned.beingDowned = false;
         }
-    }
+    }*/
 
-    [HarmonyPatch(typeof(Pawn_EquipmentTracker), "TryDropEquipment")]
+    /*[HarmonyPatch(typeof(Pawn_EquipmentTracker), "TryDropEquipment")]
     public static class Pawn_EquipmentTracker_TryDropEquipment
     {
         //EW EW EW GLOBAL FLAG EW EW
         public static bool dropEquipmentSourcedBySimpleSidearms = false;
-
+        
         [HarmonyPostfix]
         public static void TryDropEquipment_Postfix(Pawn_EquipmentTracker __instance, bool __result, ThingWithComps resultingEq)
         {
             if(__result == true && resultingEq != null) 
             {
                 Pawn pawn = __instance.pawn;
-                if (!pawn.IsValidSidearmsCarrier())
+                if (!pawn.IsValidSidearmsCarrierRightNow())
                     return;
 
                 if (!(Pawn_HealthTracker_MakeDowned.beingDowned || dropEquipmentSourcedBySimpleSidearms))
@@ -337,9 +327,9 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                 }
             }
         }
-    }
+    }*/
 
-    [HarmonyPatch(typeof(Pawn_EquipmentTracker), "AddEquipment")]
+    /*[HarmonyPatch(typeof(Pawn_EquipmentTracker), "AddEquipment")]
     public static class Pawn_EquipmentTracker_AddEquipment
     {
         //EW EW EW GLOBAL FLAG EW EW
@@ -351,7 +341,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             if (!addEquipmentSourcedBySimpleSidearms)
             {
                 Pawn pawn = __instance.pawn;
-                if (!pawn.IsValidSidearmsCarrier())
+                if (!pawn.IsValidSidearmsCarrierRightNow())
                     return;
                 CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
                 if (pawnMemory == null)
@@ -359,7 +349,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                 pawnMemory.InformOfAddedPrimary(newEq);
             }
         }
-    }
+    }*/
 
     [HarmonyPatch(typeof(JobDriver_AttackMelee), "TryMakePreToilReservations")]
     public static class JobDriver_AttackMelee_TryMakePreToilReservations
@@ -383,7 +373,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
         [HarmonyPrefix]
         public static bool Prefix(Pawn pawn, Thing thing)
         {
-            if (!(thing is ThingWithComps thingWithComps) || !pawn.IsValidSidearmsCarrier())
+            if (!(thing is ThingWithComps thingWithComps) || !pawn.IsValidSidearmsCarrierRightNow())
                 return true;
             else
             {
@@ -393,7 +383,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                 if (rememberedOfType.Any())
                 {
 
-                    var carriedOfType = pawn.getCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
+                    var carriedOfType = pawn.GetCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
 
                     if (rememberedOfType.Count() > carriedOfType.Sum(c => c.stackCount) - thingWithComps.stackCount)
                     {
@@ -422,7 +412,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             else
             {
                 Pawn pawn = __instance.pawn;
-                if (!pawn.IsValidSidearmsCarrier())
+                if (!pawn.IsValidSidearmsCarrierRightNow())
                     return;
                 CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
                 if (

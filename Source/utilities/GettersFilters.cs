@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using PeteTimesSix.SimpleSidearms.Compat;
 using RimWorld;
 using SimpleSidearms.rimworld;
 using Verse;
@@ -125,7 +126,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             if (pawn == null || pawn.Dead || pawn.equipment == null || pawn.inventory == null)
                 return (null,-1, 0);
 
-            IEnumerable<ThingWithComps> options = pawn.getCarriedWeapons(includeEquipped).Where(t => t.def.IsRangedWeapon);
+            IEnumerable<ThingWithComps> options = pawn.GetCarriedWeapons(includeEquipped).Where(t => t.def.IsRangedWeapon);
 
             if (!Settings.AllowBlockedWeaponUse)
                 options = options.Where(t => StatCalculator.canUseSidearmInstance(t, pawn, out _));
@@ -138,6 +139,15 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
                 options = options.Where(t => (!isDangerousWeapon(t)));
             if (skipEMP)
                 options = options.Where(t => !isEMPWeapon(t));
+
+            if (VFECore.active && VFECore.offHandShield(pawn) != null)
+            {
+                options = options.Where(t => VFECore.usableWithShields(t.def));
+            }
+            if (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.getOffHand(pawn, out _)) //currently has offhanded weapon, filter to only one-handed
+            {
+                options = options.Where(t => !Tacticowl.isTwoHanded(t.def));
+            }
 
             if (options.Count() == 0)
                 return (null, -1, 0);
@@ -212,7 +222,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             if (pawn == null || pawn.Dead || pawn.equipment == null || pawn.inventory == null)
                 return false;
 
-            IEnumerable<ThingWithComps> options = pawn.getCarriedWeapons(includeEquipped).Where(t =>
+            IEnumerable<ThingWithComps> options = pawn.GetCarriedWeapons(includeEquipped).Where(t =>
             {
             return 
                 t.def.IsMeleeWeapon ||
@@ -221,8 +231,17 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
 
             if (!Settings.AllowBlockedWeaponUse)
                 options = options.Where(t => StatCalculator.canUseSidearmInstance(t, pawn, out _));
+            
+            if (VFECore.active && VFECore.offHandShield(pawn) != null)
+            {
+                options = options.Where(t => VFECore.usableWithShields(t.def));
+            }
+            if (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.getOffHand(pawn, out _)) //currently has offhanded weapon, filter to only one-handed
+            {
+                options = options.Where(t => !Tacticowl.isTwoHanded(t.def));
+            }
 
-            if (options.Count() < 1)
+            if (options.Count() == 0)
                 return false;
 
             float averageSpeed = AverageSpeedMelee(options, pawn);
@@ -248,7 +267,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
         {
             if (weapon == null)
                 return false;
-            CompEquippable equip = weapon.TryGetComp<CompEquippable>();
+            CompEquippable equip = weapon.GetComp<CompEquippable>();
             if (equip == null)
                 return false;
             if (equip.PrimaryVerb.verbProps.onlyManualCast)
@@ -261,7 +280,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
         {
             if (weapon == null)
                 return false;
-            CompEquippable equip = weapon.TryGetComp<CompEquippable>();
+            CompEquippable equip = weapon.GetComp<CompEquippable>();
             if (equip == null)
                 return false;
             if (equip.PrimaryVerb.IsIncendiary_Melee() || equip.PrimaryVerb.IsIncendiary_Ranged() || equip.PrimaryVerb.verbProps.ai_IsBuildingDestroyer)
@@ -274,7 +293,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
         {
             if (weapon == null)
                 return false;
-            CompEquippable equip = weapon.TryGetComp<CompEquippable>();
+            CompEquippable equip = weapon.GetComp<CompEquippable>();
             if (equip == null)
                 return false;
             if (equip.PrimaryVerb.IsEMP())

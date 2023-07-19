@@ -25,7 +25,7 @@ namespace SimpleSidearms.rimworld
         public static bool TryGenerateSidearmFor(Pawn pawn, float chance, float budgetMultiplier, PawnGenerationRequest request)
         {
             if (
-                !(Current.ProgramState == ProgramState.Playing) || !pawn.IsValidSidearmsCarrier() ||
+                !(Current.ProgramState == ProgramState.Playing) || !pawn.IsValidSidearmsCarrierRightNow() ||
                 chance < 0.01f ||
                 pawn.kindDef.weaponTags == null || pawn.kindDef.weaponTags.Count == 0 ||
                 pawn.equipment.Primary == null ||
@@ -117,7 +117,7 @@ namespace SimpleSidearms.rimworld
                 float num = (request.BiocodeWeaponChance > 0f) ? request.BiocodeWeaponChance : pawn.kindDef.biocodeWeaponChance;
                 if (Rand.Value < num)
                 {
-                    CompBiocodable compBiocodableWeapon = rolledWeaponFinal.TryGetComp<CompBiocodable>();
+                    CompBiocodable compBiocodableWeapon = rolledWeaponFinal.GetComp<CompBiocodable>();
                     if (compBiocodableWeapon != null)
                     {
                         compBiocodableWeapon.CodeFor(pawn);
@@ -127,7 +127,6 @@ namespace SimpleSidearms.rimworld
                 bool success = pawn.inventory.innerContainer.TryAdd(rolledWeaponFinal);
                 if (success) 
                 {
-
                     CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
                     if (pawnMemory != null)
                         pawnMemory.InformOfAddedSidearm(rolledWeaponFinal);
