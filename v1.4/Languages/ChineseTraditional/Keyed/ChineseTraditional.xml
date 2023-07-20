@@ -5,17 +5,17 @@
 
   <FirstTimeSettingsWarning>第一次運行Simple Sidearms嗎？
 
-這個圖示表示該模組的設置尚未配置。當首次訪問設置菜單時，圖示便會消失。
+此通知表示該模組的設置尚未配置。當首次訪問設置菜單時，通知便會消失。
 
 點擊現在前往設置。</FirstTimeSettingsWarning>
 
-  <ActiveTab_title>配置選項</ActiveTab_title>
+  <ActiveTab_title>設置選項</ActiveTab_title>
   <ActiveTab_desc></ActiveTab_desc>
   <ToolAutoSwitch_title>自動切換－工具</ToolAutoSwitch_title>
   <ToolAutoSwitch_desc>是否根據當前工作切換擁有狀態增益的工具/武器？</ToolAutoSwitch_desc>
-  <OptimalMelee_title>自動切換－近戰最佳</OptimalMelee_title>
+  <OptimalMelee_title>近戰自動－最佳</OptimalMelee_title>
   <OptimalMelee_desc>是否自動切換更高DPS的近戰武器？</OptimalMelee_desc>
-  <CQCAutoSwitch_title>自動切換－近戰</CQCAutoSwitch_title>
+  <CQCAutoSwitch_title>近戰自動－切換</CQCAutoSwitch_title>
   <CQCAutoSwitch_desc>是否在近戰攻擊時自動切換到近戰副武器？</CQCAutoSwitch_desc>
   <CQCFistSwitch_title>自動切換－徒手格鬥</CQCFistSwitch_title>
   <CQCFistSwitch_desc>即使沒有裝備副武器，是否自動切換為徒手格鬥？</CQCFistSwitch_desc>
@@ -24,75 +24,78 @@
 
   <DropMode_title>拋棄準則</DropMode_title>
   <DropMode_desc>什麼情況下，殖民者會拋下武器而不是放回武器欄？</DropMode_desc>
-  <FumbleRecoveryChance_title>減少摸找機率</FumbleRecoveryChance_title>
-  <FumbleRecoveryChance_hint>垂直軸是避免摸找的機率
+  <FumbleRecoveryChance_title>減少失手機率</FumbleRecoveryChance_title>
+  <FumbleRecoveryChance_hint>垂直軸是避免失手的機率
   水平軸是近戰或遠程技能（取決於哪個更好）</FumbleRecoveryChance_hint>
 
   <ReEquipOutOfCombat_title>自動整備－戰後</ReEquipOutOfCombat_title>
   <ReEquipOutOfCombat_desc>結束戰鬥後，自動重新裝備拋棄的武器。</ReEquipOutOfCombat_desc>
   <ReEquipBest_title>自動整備－最佳</ReEquipBest_title>
-  <ReEquipBest_desc>優先搜尋並裝備上品質更好的武器【而非距離】。</ReEquipBest_desc>
+  <ReEquipBest_desc>自動搜尋並裝備武器【優先級:品質＞距離】。</ReEquipBest_desc>
   <ReEquipInCombat_title>自動整備－戰鬥中</ReEquipInCombat_title>
   <ReEquipInCombat_desc>在戰鬥中被動反應時，自動重新裝備武器。</ReEquipInCombat_desc>
 
   <SkipDangerousWeapons_title>忽略危險武器</SkipDangerousWeapons_title>
   <SkipDangerousWeapons_desc>禁止自動裝備危險武器（如汽油彈、手榴彈、火箭發射器等）。</SkipDangerousWeapons_desc>
   <SkipEMPWeapons_title>忽略EMP武器</SkipEMPWeapons_title>
-  <SkipEMPWeapons_desc>禁止自動裝備EMP武器（請注意，除非與機械人戰鬥，否則殖民者不會考慮自動裝備這些武器）。</SkipEMPWeapons_desc>
+  <SkipEMPWeapons_desc>禁止自動裝備EMP武器（請注意，除非與機械人戰鬥，否則殖民者不會考慮裝備這些武器）。</SkipEMPWeapons_desc>
 
   <PreserveInventoryInCaravans_title>商旅－保留副武器</PreserveInventoryInCaravans_title>
   <PreserveInventoryInCaravans_desc>當隊伍從旅行歸來時，副武器正常出現在物品欄中。（實驗性功能，由XT-0xFF@Github實現）</PreserveInventoryInCaravans_desc>
 
   <HideSidearmsInCaravanDialogs_title>商旅－隱藏副武器</HideSidearmsInCaravanDialogs_title>
-  <HideSidearmsInCaravanDialogs_desc>在交易介面隱藏副武器，避免意外販售。（實驗性功能，由XT-0xFF@Github實現）</HideSidearmsInCaravanDialogs_desc>
+  <HideSidearmsInCaravanDialogs_desc>在交易介面隱藏副武器，避免意外。（實驗性功能，由XT-0xFF@Github實現）</HideSidearmsInCaravanDialogs_desc>
 
-  <ShowAlertsMissingSidearm_title>顯示副武器警報</ShowAlertsMissingSidearm_title>
-  <ShowAlertsMissingSidearm_desc>顯示武器欄遺失副武器卻沒有武器裝備的警報。</ShowAlertsMissingSidearm_desc>
+  <ShowAlertsMissingSidearm_title>顯示遺失通知</ShowAlertsMissingSidearm_title>
+  <ShowAlertsMissingSidearm_desc>跳出通知提示哪些武器欄遺失武器的殖民者。</ShowAlertsMissingSidearm_desc>
 
   <SidearmsPlaySounds_title>播放音效</SidearmsPlaySounds_title>
   <SidearmsPlaySounds_desc>當切換武器時播放音效。</SidearmsPlaySounds_desc>
+  
+  <ShowBrainscope_title>顯示內部狀態</ShowBrainscope_title>
+  <ShowBrainscope_desc>一個開發者小工具，可以顯示所選單位的內部狀態。</ShowBrainscope_desc>
 
   <AllowBlockedWeaponUse_title>允許使用被禁止的武器</AllowBlockedWeaponUse_title>
-  <AllowBlockedWeaponUse_desc>允許使用通常被禁止的武器，例如個人武器、生物密碼武器和意識形態角色限制武器——參見XKCD＃1172。</AllowBlockedWeaponUse_desc>
+  <AllowBlockedWeaponUse_desc>允許使用通常被禁止的武器，例如個人武器、生物碼和意識形態限制的武器——參見XKCD＃1172。</AllowBlockedWeaponUse_desc>
 
-  <LimitCarryInfo_title>*始終受限於殖民者的負重能力</LimitCarryInfo_title>
+  <LimitCarryInfo_title>*受限於殖民者的負重能力</LimitCarryInfo_title>
   <LimitCarryInfo_desc></LimitCarryInfo_desc>
 
   <CEOverrideInfo_title>已禁用以支援CE的系統。</CEOverrideInfo_title>
   <CEOverrideInfo_desc></CEOverrideInfo_desc>
 
   <LimitModeSingle_title>副武限制</LimitModeSingle_title>
-  <LimitModeSingle_desc>對單獨的副武器有什麼限制。  </LimitModeSingle_desc>
-  <LimitModeSingleMelee_title>副武限制－近戰  </LimitModeSingleMelee_title>
-  <LimitModeSingleMelee_desc>對單獨的近戰副武器有什麼限制。  </LimitModeSingleMelee_desc>
-  <LimitModeSingleRanged_title>副武限制－遠程 </LimitModeSingleRanged_title>
-  <LimitModeSingleRanged_desc>對單獨的遠程副武器有什麼限制。  </LimitModeSingleRanged_desc>
+  <LimitModeSingle_desc>單把副武器有什麼限制。</LimitModeSingle_desc>
+  <LimitModeSingleMelee_title>副武限制－近戰</LimitModeSingleMelee_title>
+  <LimitModeSingleMelee_desc>單把近戰副武器有什麼限制。</LimitModeSingleMelee_desc>
+  <LimitModeSingleRanged_title>副武限制－遠程</LimitModeSingleRanged_title>
+  <LimitModeSingleRanged_desc>單把遠程副武器有什麼限制。</LimitModeSingleRanged_desc>
   <LimitModeAmount_title>副武－總限制</LimitModeAmount_title>
   <LimitModeAmount_desc>對所有副武器有什麼限制。</LimitModeAmount_desc>
-  <LimitModeAmountMelee_title>副武總限制－近戰</LimitModeAmountMelee_title>
+  <LimitModeAmountMelee_title>近戰－總限制</LimitModeAmountMelee_title>
   <LimitModeAmountMelee_desc>對所有近戰副武器有什麼限制。</LimitModeAmountMelee_desc>
-  <LimitModeAmountRanged_title>副武總限制－遠程</LimitModeAmountRanged_title>
+  <LimitModeAmountRanged_title>遠程－總限制</LimitModeAmountRanged_title>
   <LimitModeAmountRanged_desc>對所有遠程副武器有什麼限制。</LimitModeAmountRanged_desc>
 
   <LimitModeAmountTotal_title>副武－總限制</LimitModeAmountTotal_title>
   <LimitModeAmountTotal_desc>所有副武器有哪些限制。</LimitModeAmountTotal_desc>
 
   <MaximumMassAmountAbsolute_title>副武－總重限制</MaximumMassAmountAbsolute_title>
-  <MaximumMassAmountAbsolute_desc>單位可攜帶的副武器總重量上限。</MaximumMassAmountAbsolute_desc>
+  <MaximumMassAmountAbsolute_desc>可攜帶的副武總重量上限。</MaximumMassAmountAbsolute_desc>
   <MaximumMassAmountRelative_title>副武－總重比例</MaximumMassAmountRelative_title>
   <MaximumMassAmountRelative_desc>相對於其攜帶能力，單位可攜帶的副武器總重量上限的百分比。</MaximumMassAmountRelative_desc>
-  <MaximumMassSingleAbsolute_title>單副武－最大重量</MaximumMassSingleAbsolute_title>
+  <MaximumMassSingleAbsolute_title>單把－最大重量</MaximumMassSingleAbsolute_title>
   <MaximumMassSingleAbsolute_desc>單把副武器重量上限。</MaximumMassSingleAbsolute_desc>
-  <MaximumMassSingleRelative_title>單副武－總重比例</MaximumMassSingleRelative_title>
+  <MaximumMassSingleRelative_title>單把－總重比例</MaximumMassSingleRelative_title>
   <MaximumMassSingleRelative_desc>單把副武器重量百分比上限。</MaximumMassSingleRelative_desc>
   <MaximumSlots_title>武器欄</MaximumSlots_title>
-  <MaximumSlots_desc>副武器數量上限。</MaximumSlots_desc>
+  <MaximumSlots_desc>可攜帶的數量上限。</MaximumSlots_desc>
   <RangedCombatAutoSwitchMaxWarmup_title>自動切換－最大預備百分比  </RangedCombatAutoSwitchMaxWarmup_title>
   <RangedCombatAutoSwitchMaxWarmup_desc>進行射擊時，如果準備時間超過指定百分比，是否會中斷並切至副武器。</RangedCombatAutoSwitchMaxWarmup_desc>
   <RangedCombatAutoSwitch_title>自動切換－最佳距離</RangedCombatAutoSwitch_title>
   <RangedCombatAutoSwitch_desc>進行射擊時，是否會自動切換到最佳距離的武器。</RangedCombatAutoSwitch_desc>
-  <SeparateModes_title>分離近戰/遠程武器</SeparateModes_title>
-  <SeparateModes_desc>是否對近戰和遠程武器進行獨立的限制，還是共享限制。</SeparateModes_desc>
+  <SeparateModes_title>分類限制</SeparateModes_title>
+  <SeparateModes_desc>是否對近戰和遠程武器獨立的限制，還是共享限制。</SeparateModes_desc>
   <SidearmSelection_title>副武器選擇</SidearmSelection_title>
   <SidearmSelection_desc></SidearmSelection_desc>
   <SingleshotAutoSwitch_title>自動切換－單發武器</SingleshotAutoSwitch_title>
@@ -145,8 +148,8 @@
   <DropMode_option_InCombat>戰鬥</DropMode_option_InCombat>
   <DropMode_option_Always>總是</DropMode_option_Always>
 
-  <Fumbled>Fumble!</Fumbled>
-  <Fumbled_dev>Fumble! ({0})</Fumbled_dev>
+  <Fumbled>失手!</Fumbled>
+  <Fumbled_dev>失手! ({0})</Fumbled_dev>
 
   <PresetExport_title></PresetExport_title>
   <PresetExport_desc></PresetExport_desc>
@@ -172,7 +175,7 @@
   <Preset3_desc>殖民者在武器選擇方面更有創意，但仍保持在一個普通人在危險的邊緣世界上試圖生存的可能範圍內。</Preset3_desc>
   <Preset3_label></Preset3_label>
   <Preset4_title>浮誇</Preset4_title>
-  <Preset4_desc>全都帶上！速射機槍？帶上兩把！矛？我背包里有整套收藏！</Preset4_desc>
+  <Preset4_desc>全都帶上！速射機槍？帶上兩把！矛？我背包裡有整套收藏！</Preset4_desc>
   <Preset4_label></Preset4_label>
   <Preset5_title>格鬥</Preset5_title>
   <Preset5_desc>每個人會裝備近戰副武器。</Preset5_desc>
@@ -191,7 +194,7 @@
   <SidearmPickupFail_AllSlotsFull>欄位已滿</SidearmPickupFail_AllSlotsFull>
   <SidearmPickupFail_MeleeSlotsFull>欄位已滿</SidearmPickupFail_MeleeSlotsFull>
   <SidearmPickupFail_RangedSlotsFull>欄位已滿</SidearmPickupFail_RangedSlotsFull>
-  <SidearmPickupFail_NotAToolForPacifist>非工具。{0} 無法使用暴力。</SidearmPickupFail_NotAToolForPacifist>
+  <SidearmPickupFail_NotAToolForPacifist>非工具。{0} 拒絕暴力。</SidearmPickupFail_NotAToolForPacifist>
   <SidearmPickupFail_NotYetBladelinkBonded>尚未綁定</SidearmPickupFail_NotYetBladelinkBonded>
   <SidearmPickupPass>沒有問題</SidearmPickupPass>
   <AsSidearm>為副武器</AsSidearm>
@@ -210,41 +213,38 @@
   <WeaponListKind_option_Both>全部</WeaponListKind_option_Both>
   <WeaponListKind_option_Melee>近戰武器</WeaponListKind_option_Melee>
   <WeaponListKind_option_Ranged>遠程武器</WeaponListKind_option_Ranged>
-  
-  <TribalWeapons>Tribal</TribalWeapons>
-  <NonTribalWeapons>Not tribal</NonTribalWeapons>
 
-  <ConsideredSidearms>Sidearms</ConsideredSidearms>
-  <NotConsideredSidearms>Not sidearms</NotConsideredSidearms>
+  <TribalWeapons>部落</TribalWeapons>
+  <NonTribalWeapons>非部落</NonTribalWeapons>
 
-  <LockedWeaponSwitch>Cannot autoswitch (ranged)</LockedWeaponSwitch>
-  <UnlockedWeaponSwitch>Can autoswitch (ranged)</UnlockedWeaponSwitch>
+  <ConsideredSidearms>副武器</ConsideredSidearms>
+  <NotConsideredSidearms>非副武器</NotConsideredSidearms>
 
-  <WeaponSwitchAutolockOn>Lock autoswitch on draw</WeaponSwitchAutolockOn>
-  <WeaponSwitchAutolockOff>Off</WeaponSwitchAutolockOff>
+  <LockedWeaponSwitch>無法自動切換（遠程武器）</LockedWeaponSwitch>
+  <UnlockedWeaponSwitch>可以自動切換（遠程武器）</UnlockedWeaponSwitch>
+
+  <WeaponSwitchAutolockOn>瞄準時自動切換武器</WeaponSwitchAutolockOn>
+  <WeaponSwitchAutolockOff>關閉</WeaponSwitchAutolockOff>
 
   <DrawSidearm_gizmoTitle>副武器</DrawSidearm_gizmoTitle>
   <SidearmPreference_Ranged>使用遠程武器。</SidearmPreference_Ranged>
-  <SidearmPreference_Skill>根據自己的技能或熱情使用武器。</SidearmPreference_Skill>
+  <SidearmPreference_Skill>根據技能或熱情使用武器。</SidearmPreference_Skill>
   <SidearmPreference_Melee>使用近戰武器。</SidearmPreference_Melee>
   <DrawSidearm_gizmoTooltipRanged>左鍵設為默認。\n右鍵為拋下{0}。</DrawSidearm_gizmoTooltipRanged>
-  <DrawSidearm_gizmoTooltipMelee>左鍵設為首選。右鍵為拋下{0}。</DrawSidearm_gizmoTooltipMelee>
-  <DrawSidearm_gizmoTooltipRangedDefault>Left click to force use of {0}.
-Right click to unset {0} as default ranged weapon.</DrawSidearm_gizmoTooltipRangedDefault>
-  <DrawSidearm_gizmoTooltipMeleePreferred>Left click to force use of {0}.
-Right click to remove melee weapon preference of {0}.</DrawSidearm_gizmoTooltipMeleePreferred>
-  <DrawSidearm_gizmoTooltipForced>Right click to remove forced use of {0}.</DrawSidearm_gizmoTooltipForced>
-  <DrawSidearm_gizmoTooltipWhileDrafted>Left click to force use of {0} until end of combat.</DrawSidearm_gizmoTooltipWhileDrafted>
-  <DrawSidearm_gizmoTooltipForcedWhileDrafted>Right click to remove forced use of {0}.</DrawSidearm_gizmoTooltipForcedWhileDrafted>
-  <DrawSidearm_gizmoTooltipMemory>Right click to forget about {0}.</DrawSidearm_gizmoTooltipMemory>
-  <DrawSidearm_gizmoTooltipMemoryWhileDrafted>No interaction while drafted.</DrawSidearm_gizmoTooltipMemoryWhileDrafted>
-  <DrawSidearm_gizmoTooltipUnarmed>Left click to set unarmed combat as preferred melee option.</DrawSidearm_gizmoTooltipUnarmed>
-  <DrawSidearm_gizmoTooltipUnarmedPreferred>Left click to force use of unarmed combat. 
-Right click to remove unarmed combat as preferred melee option.</DrawSidearm_gizmoTooltipUnarmedPreferred>
-  <DrawSidearm_gizmoTooltipUnarmedForced>Right click to remove forced use of unarmed combat.</DrawSidearm_gizmoTooltipUnarmedForced>
-  <DrawSidearm_gizmoTooltipUnarmedWhileDrafted>Left click to force use of unarmed combat until end of combat.</DrawSidearm_gizmoTooltipUnarmedWhileDrafted>
-  <DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>Right click to remove forced use of unarmed combat.</DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>
-  <DrawSidearm_blocked>Weapon unusable</DrawSidearm_blocked>
+  <DrawSidearm_gizmoTooltipMelee>左鍵設為首選。\n右鍵為拋下{0}。</DrawSidearm_gizmoTooltipMelee>
+  <DrawSidearm_gizmoTooltipRangedDefault>左鍵強制使用 {0}。\n右鍵取消默認。</DrawSidearm_gizmoTooltipRangedDefault>
+  <DrawSidearm_gizmoTooltipMeleePreferred>左鍵強制使用 {0}。\n右鍵移除首選。</DrawSidearm_gizmoTooltipMeleePreferred>
+  <DrawSidearm_gizmoTooltipForced>右鍵解除強制使用。</DrawSidearm_gizmoTooltipForced>
+  <DrawSidearm_gizmoTooltipWhileDrafted>左鍵強制使用 {0}直至戰鬥結束。</DrawSidearm_gizmoTooltipWhileDrafted>
+  <DrawSidearm_gizmoTooltipForcedWhileDrafted>右鍵解除強制使用。</DrawSidearm_gizmoTooltipForcedWhileDrafted>
+  <DrawSidearm_gizmoTooltipMemory>右鍵移除 {0}。</DrawSidearm_gizmoTooltipMemory>
+  <DrawSidearm_gizmoTooltipMemoryWhileDrafted>戰鬥時無法操作。</DrawSidearm_gizmoTooltipMemoryWhileDrafted>
+  <DrawSidearm_gizmoTooltipUnarmed>左鍵設置徒手格鬥為首選。</DrawSidearm_gizmoTooltipUnarmed>
+  <DrawSidearm_gizmoTooltipUnarmedPreferred>左鍵強制徒手格鬥。\n右鍵解除徒手格鬥為首選。</DrawSidearm_gizmoTooltipUnarmedPreferred>
+  <DrawSidearm_gizmoTooltipUnarmedForced>右鍵解除強制徒手格鬥。</DrawSidearm_gizmoTooltipUnarmedForced>
+  <DrawSidearm_gizmoTooltipUnarmedWhileDrafted>左鍵強制徒手格鬥直至戰鬥結束。</DrawSidearm_gizmoTooltipUnarmedWhileDrafted>
+  <DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>右鍵解除強制徒手格鬥。</DrawSidearm_gizmoTooltipUnarmedForcedWhileDrafted>
+  <DrawSidearm_blocked>武器無法使用</DrawSidearm_blocked>
 
   <Alert_MissingSidearm_label>缺少副武器</Alert_MissingSidearm_label>
   <Alert_MissingPrimary_label>缺少主武器</Alert_MissingPrimary_label>
