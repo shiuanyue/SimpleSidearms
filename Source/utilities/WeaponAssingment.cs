@@ -104,6 +104,7 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             return equipSpecificWeapon(pawn, weapon, dropCurrent, intentionalDrop);
         }
 
+        public static ThingWithComps currentlyEquippingWeapon = null;
         public static bool equipSpecificWeapon(Pawn pawn, ThingWithComps weapon, bool dropCurrent, bool intentionalDrop)
         {
             if (!pawn.IsValidSidearmsCarrierRightNow())
@@ -118,6 +119,8 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
                 Log.Warning("SS: Attepmpted to equip already-equipped weapon!");
                 return false;
             }
+
+            currentlyEquippingWeapon = weapon;
 
             ThingWithComps storedOffhand = null;
 
@@ -215,13 +218,13 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             if (pawn.CurJobDef == JobDefOf.Hunt)
                 pawn.jobs.EndCurrentJob(JobCondition.InterruptForced, true);
 
+            currentlyEquippingWeapon = null;
+
             return true;
         }
 
         public static void DoFumbleMote(Pawn pawn)
         {
-            var bestSkillc = Math.Max(pawn.skills.GetSkill(SkillDefOf.Shooting).Level, pawn.skills.GetSkill(SkillDefOf.Melee).Level);
-            var chancec = Settings.FumbleRecoveryChance.Evaluate(bestSkillc);
             if (!Prefs.DevMode)
             {
                 MoteMaker.ThrowText(pawn.DrawPos, pawn.Map, Prefs.DevMode ? "Fumbled".Translate() : "Fumbled".Translate());
@@ -254,15 +257,12 @@ namespace PeteTimesSix.SimpleSidearms.Utilities
             {
                 candidates = candidates.Where(t => VFECore.usableWithShields(t.def));
             }
-            if (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.getOffHand(pawn, out _)) //currenlty has offhanded weapon, filter to only one-handed
+            if (Tacticowl.active && Tacticowl.dualWieldActive() && Tacticowl.getOffHand(pawn, out _)) //currently has offhanded weapon, filter to only one-handed
             {
                 candidates = candidates.Where(t => Tacticowl.canBeOffHand(t.def));
             }
 
-            ThingWithComps bestBooster = candidates.OrderBy(t =>
-            {
-                return t.toThingDefStuffDefPair().getBestStatBoost(stats, out _);
-            }).FirstOrDefault();
+            ThingWithComps bestBooster = candidates.OrderByDescending(t => t.toThingDefStuffDefPair().getBestStatBoost(stats, out _)).FirstOrDefault();
 
             if (bestBooster == default(ThingWithComps))
                 return false;

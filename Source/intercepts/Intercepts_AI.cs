@@ -65,23 +65,19 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                         return;
                     pawnMemory.CheckIfStillOnAutotoolJob();
 
+                    var possiblyActiveStats = new HashSet<StatDef>();
+                    
                     StatDef activeStat = pawn.CurJob?.RecipeDef?.workSpeedStat;
-
-                    SkillDef activeSkill = null;
-                    if (toil.activeSkill != null && toil.activeSkill() != null)
-                        activeSkill = toil.activeSkill();
-                    else
-                        activeSkill = pawn.CurJob?.RecipeDef?.workSkill;
-
-                    List<StatDef> possiblyActiveStats = new List<StatDef>();
                     if (activeStat != null)
-                        possiblyActiveStats.Add(activeStat);
-                    else if (activeSkill != null && SkillStatMap.Map.ContainsKey(activeSkill))
+                        possiblyActiveStats.AddRange(activeStat.StatAndItsFactors());
+                    
+                    SkillDef activeSkill = toil.activeSkill?.Invoke() ?? pawn.CurJob?.RecipeDef?.workSkill;
+                    if (activeSkill != null && SkillStatMap.Map.ContainsKey(activeSkill))
                         possiblyActiveStats.AddRange(SkillStatMap.Map[activeSkill]);
 
                     //Log.Message($"{toil} has active stats: {string.Join(",", possiblyActiveStats.Select(s => s.LabelCap))}");
 
-                    bool usingAppropriateTool = WeaponAssingment.equipBestWeaponFromInventoryByStatModifiers(pawn, possiblyActiveStats);
+                    bool usingAppropriateTool = WeaponAssingment.equipBestWeaponFromInventoryByStatModifiers(pawn, possiblyActiveStats.ToList());
                     if (usingAppropriateTool)
                     {
                         if (pawnMemory != null)
@@ -111,32 +107,26 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
         }
     }
 
-    [HarmonyPatch(typeof(PawnRenderer), "CarryWeaponOpenly")]
-    public static class PawnRenderer_CarryWeaponOpenly_Postfix
+    [HarmonyPatch(typeof(PawnRenderUtility), nameof(PawnRenderUtility.CarryWeaponOpenly))]
+    public static class PawnRenderUtility_CarryWeaponOpenly
     {
         [HarmonyPostfix]
-        public static bool CarryWeaponOpenly(bool __result, Pawn ___pawn)
+        public static bool PawnRenderUtility_CarryWeaponOpenly_Postfix(bool __result, Pawn pawn)
         {
-            if (__result == true || !___pawn.IsValidSidearmsCarrierRightNow())
+            if (__result == true || !pawn.IsValidSidearmsCarrierRightNow())
                 return __result;
             
-            return CompSidearmMemory.GetMemoryCompForPawn(___pawn) is CompSidearmMemory pawnMemory && pawnMemory.autotoolToil != null;
+            return CompSidearmMemory.GetMemoryCompForPawn(pawn) is CompSidearmMemory pawnMemory && pawnMemory.autotoolToil != null;
         }
     }
 
-    [HarmonyPatch(typeof(AutoUndrafter), "AutoUndraftTick")]
+    [HarmonyPatch(typeof(AutoUndrafter), nameof(AutoUndrafter.AutoUndraftTickInterval))]
     public static class AutoUndrafter_AutoUndraftTick_Postfix
     {
         public const int autoRetrieveDelay = 300;
-        private static AccessTools.FieldRef<AutoUndrafter, int> lastNonWaitingTick;
-
-        static AutoUndrafter_AutoUndraftTick_Postfix() 
-        {
-            lastNonWaitingTick = AccessTools.FieldRefAccess<AutoUndrafter, int>(AccessTools.Field(typeof(AutoUndrafter), "lastNonWaitingTick"));
-        }
 
         [HarmonyPostfix]
-        public static void AutoUndraftTick(AutoUndrafter __instance, Pawn ___pawn)
+        public static void AutoUndraftTickInterval(AutoUndrafter __instance, int delta, Pawn ___pawn, int ___lastNonWaitingTick)
         {
             //Pawn pawn = Traverse.Create(__instance).Field("pawn").GetValue<Pawn>();
             Pawn pawn = ___pawn;
@@ -148,7 +138,7 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
                     //pawn.jobs.EndCurrentJob(JobCondition.Succeeded);
                     
                     WeaponAssingment.equipBestWeaponFromInventoryByPreference(pawn, DroppingModeEnum.Combat);
-                    if (tick - lastNonWaitingTick(__instance) > autoRetrieveDelay)
+                    if (tick - ___lastNonWaitingTick > autoRetrieveDelay)
                     {
                         Job retrieval = JobGiver_RetrieveWeapon.TryGiveJobStatic(pawn, true);
                         if (retrieval != null)
@@ -379,16 +369,19 @@ namespace PeteTimesSix.SimpleSidearms.Intercepts
             {
                 var weaponType = thingWithComps.toThingDefStuffDefPair();
                 CompSidearmMemory pawnMemory = CompSidearmMemory.GetMemoryCompForPawn(pawn);
-                var rememberedOfType = pawnMemory.rememberedWeapons.Where(w => w == weaponType);
-                if (rememberedOfType.Any())
+                if(pawnMemory != null)
                 {
-
-                    var carriedOfType = pawn.GetCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
-
-                    if (rememberedOfType.Count() > carriedOfType.Sum(c => c.stackCount) - thingWithComps.stackCount)
+                    var rememberedOfType = pawnMemory.rememberedWeapons.Where(w => w == weaponType);
+                    if (rememberedOfType.Any())
                     {
-                        //Log.Message($"was about to dump a weapon we need (need {rememberedOfType.Count()}, dropping {thingWithComps.stackCount} of {carriedOfType.Sum(c => c.stackCount)})");
-                        return false;
+
+                        var carriedOfType = pawn.GetCarriedWeapons(includeTools: true).Where(w => w.toThingDefStuffDefPair() == weaponType);
+
+                        if (rememberedOfType.Count() > carriedOfType.Sum(c => c.stackCount) - thingWithComps.stackCount)
+                        {
+                            //Log.Message($"was about to dump a weapon we need (need {rememberedOfType.Count()}, dropping {thingWithComps.stackCount} of {carriedOfType.Sum(c => c.stackCount)})");
+                            return false;
+                        }
                     }
                 }
             }
